@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #F9F6F6;
+}
+
+/* Estilos para el menú hamburguesa responsive */
+.navbar-toggler:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+/* Animaciones para el menú móvil */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    transition: all 0.3s ease-in-out;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+  
+  .navbar-actions .btn {
+    width: 100%;
+    justify-content: start;
+    text-align: left;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos para desktop */
+@media (min-width: 992px) {
+  .nav-links li a:hover {
+    color: #f8f9fa !important;
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+}
+
+/* Asegura que el navbar sea sticky en móvil */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
