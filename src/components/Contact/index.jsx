@@ -187,8 +187,8 @@ const Contact = () => {
                       <div>
                         <h5 className="h6 mb-1" style={{fontFamily: 'Lato, sans-serif'}}>Dirección</h5>
                         <p className="mb-0 text-muted small" style={{fontFamily: 'Quicksand, sans-serif'}}>
-                          123 Fashion Street<br />
-                          Ciudad de la Moda, CM 12345
+                          garzon 153<br />
+                          Esteban Echeverria, CM 1842
                         </p>
                       </div>
                     </div>
@@ -200,7 +200,7 @@ const Contact = () => {
                       <div>
                         <h5 className="h6 mb-1" style={{fontFamily: 'Lato, sans-serif'}}>Teléfono</h5>
                         <p className="mb-0 text-muted small" style={{fontFamily: 'Quicksand, sans-serif'}}>
-                          +1 (555) 123-4567
+                          +54 (11) 40691191
                         </p>
                       </div>
                     </div>
@@ -212,7 +212,7 @@ const Contact = () => {
                       <div>
                         <h5 className="h6 mb-1" style={{fontFamily: 'Lato, sans-serif'}}>Email</h5>
                         <p className="mb-0 text-muted small" style={{fontFamily: 'Quicksand, sans-serif'}}>
-                          info@shopnow.com
+                          richardg91@gmail.com
                         </p>
                       </div>
                     </div>

@@ -1,0 +1,48 @@
+{
+  "version": "0.2",
+  "language": "en,es",
+  "words": [
+    "checkbox",
+    "className",
+    "dropdown",
+    "Echeverria",
+    "favicon",
+    "garzon",
+    "JSX",
+    "NavBar",
+    "onClick",
+    "onSubmit",
+    "placeholder",
+    "Previsualiza",
+    "React",
+    "readonly",
+    "stylesheet",
+    "textarea",
+    "tooltip",
+    "useEffect",
+    "useState",
+    "viewport",
+    "Vite",
+    "whatsapp"
+  ],
+  "dictionaries": [
+    "typescript",
+    "node",
+    "software-terms",
+    "es"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    ".vscode/**",
+    "*.min.js",
+    "*.min.css"
+  ],
+  "languageSettings": [
+    {
+      "languageId": "javascript,typescript,jsx,tsx",
+      "locale": "en,es"
+    }
+  ]
+}
