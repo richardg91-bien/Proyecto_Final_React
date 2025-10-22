@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
 
+// Productos locales agregados por el admin (simulados)
+let localProducts = [];
+
 // Hook personalizado para manejar productos desde la API
 export const useProducts = (filter = null) => {
   const [products, setProducts] = useState([]);
@@ -24,7 +27,9 @@ export const useProducts = (filter = null) => {
           data = await productService.getProducts();
         }
         
-        setProducts(data);
+        // Combinar productos de API con productos locales (locales primero para mayor visibilidad)
+        const allProducts = [...localProducts, ...data];
+        setProducts(allProducts);
       } catch (err) {
         setError(err.message);
         setProducts([]);
@@ -53,7 +58,9 @@ export const useProducts = (filter = null) => {
           data = await productService.getProducts();
         }
         
-        setProducts(data);
+        // Combinar productos de API con productos locales (locales primero para mayor visibilidad)
+        const allProducts = [...localProducts, ...data];
+        setProducts(allProducts);
       } catch (err) {
         setError(err.message);
         setProducts([]);
@@ -65,11 +72,19 @@ export const useProducts = (filter = null) => {
     loadProducts();
   };
 
+  // Función para agregar producto local
+  const addLocalProduct = (newProduct) => {
+    localProducts.push(newProduct);
+    // Recargar productos para incluir el nuevo
+    refetch();
+  };
+
   return {
     products,
     loading,
     error,
-    refetch
+    refetch,
+    addLocalProduct
   };
 };
 

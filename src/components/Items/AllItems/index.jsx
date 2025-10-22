@@ -1,35 +1,24 @@
 // Dependencies
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import CartContext from '../../../context/CartContext';
 import { useProducts } from '../../../hooks/useProducts';
+import { useCartActions } from '../../../hooks/useCartActions';
 import Spinner from '../../Spinner';
 import ErrorMessage from '../../ErrorMessage';
 
 
 const AllItems = () => {
-  const { cartProducts, setCartProducts } = useContext(CartContext);
   const { products, loading, error, refetch } = useProducts();
+  const { addToCart } = useCartActions();
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleAddToCart = (product) => {
-    const existingProduct = cartProducts.find(item => item.id === product.id);
-    if (existingProduct) {
-      // Si el producto ya existe, aumentar la cantidad
-      setCartProducts(cartProducts.map(item => 
-        item.id === product.id 
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      ));
-    } else {
-      // Si es un producto nuevo, agregarlo con cantidad 1
-      setCartProducts([...cartProducts, { ...product, quantity: 1 }]);
-    }
-    
-    // Mostrar notificación de éxito
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 2000);
+    addToCart(product, () => {
+      // Mostrar notificación de éxito
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+    });
   };
 
   if (loading) {

@@ -5,17 +5,21 @@ import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
-  const { login, isAuthenticated } = useAuth();
+  const { login, register, isAuthenticated } = useAuth();
+  const [mode, setMode] = useState('login'); // 'login' o 'register'
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    name: ''
+    name: '',
+    confirmPassword: ''
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
+  const fromCart = from === '/cart';
 
   // Si ya está autenticado, redirigir
   if (isAuthenticated) {
@@ -29,20 +33,62 @@ const Login = () => {
       [name]: value
     }));
     setError(''); // Limpiar error al escribir
+    setSuccess(''); // Limpiar mensaje de éxito al escribir
+  };
+
+  const validateForm = () => {
+    if (mode === 'register') {
+      if (!formData.name.trim()) {
+        setError('El nombre es obligatorio');
+        return false;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        setError('Las contraseñas no coinciden');
+        return false;
+      }
+      if (formData.password.length < 6) {
+        setError('La contraseña debe tener al menos 6 caracteres');
+        return false;
+      }
+    }
+    
+    if (!formData.email || !formData.password) {
+      setError('Email y contraseña son obligatorios');
+      return false;
+    }
+    
+    return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
+    setSuccess('');
+
+    if (!validateForm()) {
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      const result = login(formData);
+      let result;
       
-      if (result.success) {
-        // El redireccionamiento se maneja automáticamente por Navigate arriba
+      if (mode === 'register') {
+        result = register(formData);
+        if (result.success) {
+          setSuccess('¡Registro exitoso! Iniciando sesión automáticamente...');
+          // El AuthProvider ya maneja el login automático
+        }
       } else {
-        setError(result.message || 'Error al iniciar sesión');
+        result = login(formData);
+        if (result.success) {
+          setSuccess('¡Login exitoso! Redirigiendo...');
+        }
+      }
+      
+      if (!result.success) {
+        setError(result.message || `Error al ${mode === 'register' ? 'registrarse' : 'iniciar sesión'}`);
       }
     } catch {
       setError('Error inesperado. Inténtalo de nuevo.');
@@ -56,15 +102,29 @@ const Login = () => {
       setFormData({
         email: 'admin@shopnow.com',
         password: 'admin123',
-        name: 'Administrador'
+        name: 'Administrador',
+        confirmPassword: 'admin123'
       });
     } else {
       setFormData({
         email: 'usuario@shopnow.com',
         password: 'user123',
-        name: 'Usuario Demo'
+        name: 'Usuario Demo',
+        confirmPassword: 'user123'
       });
     }
+  };
+
+  const toggleMode = () => {
+    setMode(mode === 'login' ? 'register' : 'login');
+    setError('');
+    setSuccess('');
+    setFormData({
+      email: '',
+      password: '',
+      name: '',
+      confirmPassword: ''
+    });
   };
 
   return (
@@ -76,11 +136,27 @@ const Login = () => {
               <div className="card-body p-5">
                 {/* Header */}
                 <div className="text-center mb-4">
+                  {fromCart && (
+                    <div className="alert alert-info mb-3">
+                      <i className="bi bi-cart-plus me-2"></i>
+                      <strong>¡Para comprar necesitas una cuenta!</strong>
+                      <br />
+                      <small>Regístrate o inicia sesión para acceder a tu carrito de compras</small>
+                    </div>
+                  )}
                   <h2 className="h3 fw-bold" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
-                    Iniciar Sesión
+                    {mode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta'}
                   </h2>
                   <p className="text-muted" style={{fontFamily: 'Quicksand, sans-serif'}}>
-                    Accede a tu cuenta de Indumentaria Agat
+                    {fromCart ? (
+                      mode === 'login' 
+                        ? 'Inicia sesión para acceder a tu carrito'
+                        : 'Crea tu cuenta para empezar a comprar'
+                    ) : (
+                      mode === 'login' 
+                        ? 'Accede a tu cuenta de Indumentaria Agat'
+                        : 'Regístrate en Indumentaria Agat'
+                    )}
                   </p>
                 </div>
 
@@ -92,28 +168,38 @@ const Login = () => {
                   </div>
                 )}
 
+                {/* Alert de éxito */}
+                {success && (
+                  <div className="alert alert-success" role="alert">
+                    <i className="bi bi-check-circle me-2"></i>
+                    {success}
+                  </div>
+                )}
+
                 {/* Formulario */}
                 <Form onSubmit={handleSubmit}>
-                  <div className="mb-3">
-                    <label htmlFor="name" className="form-label" style={{fontFamily: 'Quicksand, sans-serif', fontWeight: '600'}}>
-                      Nombre completo
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      style={{fontFamily: 'Quicksand, sans-serif'}}
-                      placeholder="Tu nombre"
-                    />
-                  </div>
+                  {mode === 'register' && (
+                    <div className="mb-3">
+                      <label htmlFor="name" className="form-label" style={{fontFamily: 'Quicksand, sans-serif', fontWeight: '600'}}>
+                        Nombre completo *
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required={mode === 'register'}
+                        style={{fontFamily: 'Quicksand, sans-serif'}}
+                        placeholder="Tu nombre completo"
+                      />
+                    </div>
+                  )}
 
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label" style={{fontFamily: 'Quicksand, sans-serif', fontWeight: '600'}}>
-                      Correo electrónico
+                      Correo electrónico *
                     </label>
                     <input
                       type="email"
@@ -128,9 +214,9 @@ const Login = () => {
                     />
                   </div>
 
-                  <div className="mb-4">
+                  <div className="mb-3">
                     <label htmlFor="password" className="form-label" style={{fontFamily: 'Quicksand, sans-serif', fontWeight: '600'}}>
-                      Contraseña
+                      Contraseña *
                     </label>
                     <input
                       type="password"
@@ -141,9 +227,28 @@ const Login = () => {
                       onChange={handleInputChange}
                       required
                       style={{fontFamily: 'Quicksand, sans-serif'}}
-                      placeholder="Tu contraseña"
+                      placeholder={mode === 'register' ? 'Mínimo 6 caracteres' : 'Tu contraseña'}
                     />
                   </div>
+
+                  {mode === 'register' && (
+                    <div className="mb-4">
+                      <label htmlFor="confirmPassword" className="form-label" style={{fontFamily: 'Quicksand, sans-serif', fontWeight: '600'}}>
+                        Confirmar contraseña *
+                      </label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
+                        required={mode === 'register'}
+                        style={{fontFamily: 'Quicksand, sans-serif'}}
+                        placeholder="Repite tu contraseña"
+                      />
+                    </div>
+                  )}
 
                   <Button 
                     type="submit" 
@@ -151,7 +256,9 @@ const Login = () => {
                     className="w-100 mb-3"
                     disabled={isSubmitting}
                     style={{
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      background: mode === 'register' 
+                        ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                        : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                       border: 'none',
                       borderRadius: '25px',
                       fontFamily: 'Quicksand, sans-serif',
@@ -161,16 +268,31 @@ const Login = () => {
                     {isSubmitting ? (
                       <>
                         <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                        Iniciando sesión...
+                        {mode === 'register' ? 'Registrando...' : 'Iniciando sesión...'}
                       </>
                     ) : (
                       <>
-                        <i className="bi bi-box-arrow-in-right me-2"></i>
-                        Iniciar Sesión
+                        <i className={`bi ${mode === 'register' ? 'bi-person-plus' : 'bi-box-arrow-in-right'} me-2`}></i>
+                        {mode === 'register' ? 'Crear Cuenta' : 'Iniciar Sesión'}
                       </>
                     )}
                   </Button>
                 </Form>
+
+                {/* Toggle entre login y registro */}
+                <div className="text-center mb-3">
+                  <button 
+                    type="button"
+                    className="btn btn-link text-decoration-none"
+                    onClick={toggleMode}
+                    style={{fontFamily: 'Quicksand, sans-serif'}}
+                  >
+                    {mode === 'login' 
+                      ? '¿No tienes cuenta? Regístrate aquí'
+                      : '¿Ya tienes cuenta? Inicia sesión aquí'
+                    }
+                  </button>
+                </div>
 
                 {/* Demo buttons */}
                 <div className="border-top pt-3 mt-4">

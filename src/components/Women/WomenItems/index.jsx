@@ -2,8 +2,9 @@
 import React, { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import CartContext from '../../../context/CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useProducts } from '../../../hooks/useProducts';
+import { useAuth } from '../../../hooks/useAuth';
 import Spinner from '../../Spinner';
 import ErrorMessage from '../../ErrorMessage';
 
@@ -11,8 +12,22 @@ import ErrorMessage from '../../ErrorMessage';
 const WomenItems = () => {
   const { cartProducts, setCartProducts } = useContext(CartContext);
   const { products, loading, error, refetch } = useProducts({ type: 'gender', value: 'women' });
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const handleAddToCart = (product) => {
+    // Verificar si el usuario está autenticado
+    if (!isAuthenticated) {
+      // Redirigir al login con la información de que viene de una acción de compra
+      navigate('/login', { 
+        state: { 
+          from: { pathname: '/cart' },
+          message: 'Inicia sesión para agregar productos al carrito'
+        } 
+      });
+      return;
+    }
+
     const existingProduct = cartProducts.find(item => item.id === product.id);
     if (existingProduct) {
       // Si el producto ya existe, aumentar la cantidad

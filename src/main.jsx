@@ -19,6 +19,7 @@ import Contact from './components/Contact';
 import Login from './components/Login';
 import Admin from './components/Admin';
 import AuthProvider from './components/AuthProvider';
+import ProductsProvider from './components/ProductsProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import ShowProduct from './components/ShowProduct';
 import registerServiceWorker from './registerServiceWorker';
@@ -27,35 +28,37 @@ const root = createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <AuthProvider>
-      <BaseLayout>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/cart" 
-            element={
-              <ProtectedRoute>
-                <Cart />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin" 
-            element={
-              <ProtectedRoute requireAdmin={true}>
-                <Admin />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/women" element={<Women />} />
-          <Route path="/men" element={<Men />} />
-          <Route path="/clothes" element={<Clothes />} />
-          <Route path="/accessories" element={<Accessories />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/products/:id" element={<ShowProduct />} />
-        </Routes>
-      </BaseLayout>
+      <ProductsProvider>
+        <BaseLayout>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/login" element={<Login />} />
+            <Route 
+              path="/cart" 
+              element={
+                <ProtectedRoute forShopping={true}>
+                  <Cart />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute requireAdmin={true}>
+                  <Admin />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="/women" element={<Women />} />
+            <Route path="/men" element={<Men />} />
+            <Route path="/clothes" element={<Clothes />} />
+            <Route path="/accessories" element={<Accessories />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/products/:id" element={<ShowProduct />} />
+          </Routes>
+        </BaseLayout>
+      </ProductsProvider>
     </AuthProvider>
   </BrowserRouter>
 );

@@ -1,21 +1,21 @@
 //Dependencies
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 //Internals
 import { getProductById } from '../../services/productService';
-import CartContext from '../../context/CartContext';
+import { useCartActions } from '../../hooks/useCartActions';
 // import { useProducts } from '../../hooks/useProducts';
 import Spinner from '../Spinner';
 import ErrorMessage from '../ErrorMessage';
 
 const ShowProduct = () => {
   const { id } = useParams();
+  const { addToCart: addProductToCart } = useCartActions();
   const [currentProduct, setCurrentProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
-  const { cartProducts, setCartProducts } = useContext(CartContext);
   // Removemos temporalmente el hook de productos para simplificar
   // const { products, loading: productsLoading } = useProducts();
 
@@ -40,22 +40,11 @@ const ShowProduct = () => {
   }, [id]);
 
   const addToCart = (product) => {
-    const existingProduct = cartProducts.find(item => item.id === product.id);
-    if (existingProduct) {
-      // Si el producto ya existe, aumentar la cantidad
-      setCartProducts(cartProducts.map(item => 
-        item.id === product.id 
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      ));
-    } else {
-      // Si es un producto nuevo, agregarlo con cantidad 1
-      setCartProducts([...cartProducts, { ...product, quantity: 1 }]);
-    }
-    
-    // Mostrar notificación de éxito
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000);
+    addProductToCart(product, () => {
+      // Mostrar notificación de éxito
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+    });
   };
 
   if (loading) {

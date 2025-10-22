@@ -45,6 +45,8 @@ src/
 │   ├── AuthContext.jsx  # Contexto de autenticación
 │   └── CartContext.jsx  # Contexto del carrito
 ├── hooks/               # Hooks personalizados
+│   ├── useAuth.jsx      # Hook de autenticación
+│   └── useProducts.jsx  # Hook de productos
 ├── services/            # Servicios y APIs
 └── assets/              # Recursos estáticos
 ```
@@ -104,6 +106,46 @@ El proyecto incluye:
 - Acceso a panel administrativo
 - Gestión de productos
 - Control de inventario
+- **Formulario de productos con validaciones**:
+  - Campos controlados (nombre, precio, descripción)
+  - Validación en tiempo real
+  - Mensajes de error dinámicos
+  - Validaciones específicas:
+    - Nombre: Campo obligatorio
+    - Precio: Número mayor a 0
+    - Descripción: Mínimo 10 caracteres
+
+### 📝 Formularios y Validación
+
+El proyecto implementa un sistema completo de formularios con validaciones:
+
+#### ProductForm Component
+- **Inputs controlados**: Manejo del estado con `useState`
+- **Validación dinámica**: Errores mostrados en tiempo real
+- **UX mejorada**: Limpieza de errores al escribir
+- **Feedback visual**: Estados de éxito, error y carga
+- **Accesibilidad**: Labels apropiados y mensajes descriptivos
+
+```javascript
+// Ejemplo de validación dinámica
+const validateForm = () => {
+  const newErrors = {};
+  
+  if (!formData.nombre.trim()) {
+    newErrors.nombre = 'El nombre del producto es obligatorio';
+  }
+  
+  if (!formData.precio || parseFloat(formData.precio) <= 0) {
+    newErrors.precio = 'El precio debe ser mayor a 0';
+  }
+  
+  if (formData.descripcion.trim().length < 10) {
+    newErrors.descripcion = 'La descripción debe tener al menos 10 caracteres';
+  }
+  
+  return Object.keys(newErrors).length === 0;
+};
+```
 
 ## 🎨 Diseño y UX
 

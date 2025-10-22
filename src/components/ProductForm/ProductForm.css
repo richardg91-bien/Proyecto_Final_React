@@ -1,0 +1,105 @@
+/* Estilos para ProductForm */
+.product-form {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.product-form .form-label {
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.product-form .form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+}
+
+.product-form .form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1);
+  background-color: #ffffff;
+}
+
+.product-form .form-control.is-invalid {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.product-form .form-control.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.1);
+}
+
+.product-form .invalid-feedback {
+  font-size: 0.875rem;
+  margin-top: 5px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.product-form .text-muted {
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.product-form .btn {
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.product-form .btn-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+}
+
+.product-form .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.product-form .btn-primary:disabled {
+  background: #6c757d;
+  transform: none;
+  box-shadow: none;
+}
+
+.product-form .alert {
+  border-radius: 8px;
+  border: none;
+}
+
+.product-form .alert-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+}
+
+.product-form .alert-danger {
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  color: #721c24;
+}
+
+/* Animación del spinner */
+.product-form .spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .product-form {
+    padding: 1rem;
+  }
+  
+  .product-form .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-form .d-flex.gap-2 {
+    flex-direction: column;
+  }
+}
