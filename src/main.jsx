@@ -36,7 +36,7 @@ root.render(
             <Route 
               path="/cart" 
               element={
-                <ProtectedRoute forShopping={true}>
+                <ProtectedRoute>
                   <Cart />
                 </ProtectedRoute>
               } 

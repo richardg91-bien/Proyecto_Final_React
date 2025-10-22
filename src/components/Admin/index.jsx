@@ -10,7 +10,7 @@ import ConfirmDeleteModal from '../ConfirmDeleteModal';
 
 const Admin = () => {
   const { user } = useAuth();
-  const { products, loading, error, localProducts, eliminarProducto, esProductoEditable, refetch } = useProductsContext();
+  const { products, loading, error, eliminarProducto, esProductoEditable, refetch } = useProductsContext();
   const [showProductForm, setShowProductForm] = useState(false);
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

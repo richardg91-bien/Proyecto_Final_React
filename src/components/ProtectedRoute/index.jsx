@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import Spinner from '../Spinner';
 
-const ProtectedRoute = ({ children, requireAdmin = false, forShopping = false }) => {
+const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const { isAuthenticated, user, loading, isAdmin } = useAuth();
   const location = useLocation();
 
