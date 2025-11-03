@@ -63,7 +63,11 @@ const CartProducts = () => {
               cartItems.map(product => (
                 <tr key={product.id}>
                   <td className="d-flex align-items-center gap-2">
-                    <img src={product.img} alt={product.name} style={{height: '3em', width: '3em', objectFit: 'cover', borderRadius: 8}} />
+                    <img 
+                      src={product.img} 
+                      alt={product.name} 
+                      style={{height: '3em', width: '3em', objectFit: 'cover', borderRadius: 8}} 
+                    />
                     <span>{product.name}</span>
                   </td>
                   <td>{product.description}</td>

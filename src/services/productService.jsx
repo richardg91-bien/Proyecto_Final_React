@@ -1,27 +1,5 @@
 // Servicio para manejar las peticiones a la API de productos
-const API_BASE_URL = 'https://fakestoreapi.com';
-
-// Mapear categorías de FakeStoreAPI a nuestro formato
-const mapCategory = (category) => {
-  const categoryMap = {
-    "men's clothing": "clothes",
-    "women's clothing": "clothes", 
-    "jewelery": "accessories",
-    "electronics": "accessories"
-  };
-  return categoryMap[category] || "accessories";
-};
-
-// Mapear género basado en la categoría
-const mapGender = (category) => {
-  const genderMap = {
-    "men's clothing": "men",
-    "women's clothing": "women",
-    "jewelery": "women",
-    "electronics": "men"
-  };
-  return genderMap[category] || "men";
-};
+const API_BASE_URL = 'https://69000051e02b16d1753fd8e6.mockapi.io';
 
 // Obtener todos los productos
 export const getProducts = async () => {
@@ -31,17 +9,9 @@ export const getProducts = async () => {
       throw new Error(`Error HTTP: ${response.status}`);
     }
     const data = await response.json();
-    // Mapear datos de FakeStoreAPI a nuestro formato
-    return data.map(item => ({
-      id: item.id,
-      name: item.title,
-      description: item.description,
-      price: item.price,
-      img: item.image,
-      type: mapCategory(item.category),
-      category: mapCategory(item.category),
-      gender: mapGender(item.category)
-    }));
+    
+    // MockAPI ya tiene la estructura correcta, solo devolver los datos
+    return data;
   } catch (error) {
     throw new Error(`Error al cargar productos: ${error.message}`);
   }
@@ -55,17 +25,9 @@ export const getProductById = async (id) => {
       throw new Error(`Error HTTP: ${response.status}`);
     }
     const data = await response.json();
-    // Mapear el producto individual al mismo formato
-    return {
-      id: data.id,
-      name: data.title,
-      description: data.description,
-      price: data.price,
-      img: data.image,
-      type: mapCategory(data.category),
-      category: mapCategory(data.category),
-      gender: mapGender(data.category)
-    };
+    
+    // MockAPI ya tiene la estructura correcta
+    return data;
   } catch (error) {
     throw new Error(`Error al cargar producto: ${error.message}`);
   }

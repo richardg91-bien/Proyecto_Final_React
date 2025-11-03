@@ -95,6 +95,7 @@ const Contact = () => {
                             required
                             style={{fontFamily: 'Quicksand, sans-serif'}}
                             placeholder="Tu nombre"
+                            autoComplete="name"
                           />
                         </div>
                         <div className="col-md-6">
@@ -111,6 +112,7 @@ const Contact = () => {
                             required
                             style={{fontFamily: 'Quicksand, sans-serif'}}
                             placeholder="tu@email.com"
+                            autoComplete="email"
                           />
                         </div>
                       </div>

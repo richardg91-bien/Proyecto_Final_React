@@ -193,6 +193,7 @@ const Login = () => {
                         required={mode === 'register'}
                         style={{fontFamily: 'Quicksand, sans-serif'}}
                         placeholder="Tu nombre completo"
+                        autoComplete="name"
                       />
                     </div>
                   )}
@@ -211,6 +212,7 @@ const Login = () => {
                       required
                       style={{fontFamily: 'Quicksand, sans-serif'}}
                       placeholder="tu@email.com"
+                      autoComplete="email"
                     />
                   </div>
 
@@ -228,6 +230,7 @@ const Login = () => {
                       required
                       style={{fontFamily: 'Quicksand, sans-serif'}}
                       placeholder={mode === 'register' ? 'Mínimo 6 caracteres' : 'Tu contraseña'}
+                      autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
                     />
                   </div>
 
@@ -246,6 +249,7 @@ const Login = () => {
                         required={mode === 'register'}
                         style={{fontFamily: 'Quicksand, sans-serif'}}
                         placeholder="Repite tu contraseña"
+                        autoComplete="new-password"
                       />
                     </div>
                   )}
