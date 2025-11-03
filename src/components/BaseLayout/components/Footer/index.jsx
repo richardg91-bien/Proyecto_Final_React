@@ -1,5 +1,6 @@
 //Dependencies
 import React from 'react';
+import { config } from '../../../../config/env';
 //Internals
 
 const Footer = () => (
@@ -10,7 +11,7 @@ const Footer = () => (
     {/* Redes Sociales */}
     <div className="social-media d-flex gap-3 mb-2">
       <a 
-        href="https://twitter.com" 
+        href={config.social.twitter} 
         target="_blank" 
         rel="noopener noreferrer"
         className="text-white text-decoration-none"
@@ -29,7 +30,7 @@ const Footer = () => (
       </a>
       
       <a 
-        href="https://instagram.com" 
+        href={config.social.instagram} 
         target="_blank" 
         rel="noopener noreferrer"
         className="text-white text-decoration-none"
@@ -48,7 +49,7 @@ const Footer = () => (
       </a>
       
       <a 
-        href="https://wa.me/1234567890" 
+        href={config.social.whatsappUrl} 
         target="_blank" 
         rel="noopener noreferrer"
         className="text-white text-decoration-none"

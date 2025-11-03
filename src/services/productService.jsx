@@ -1,10 +1,13 @@
 // Servicio para manejar las peticiones a la API de productos
-const API_BASE_URL = 'https://69000051e02b16d1753fd8e6.mockapi.io';
+import { config } from '../config/env';
+
+const API_BASE_URL = config.api.baseUrl;
+const API_PRODUCTS_ENDPOINT = config.api.productsEndpoint;
 
 // Obtener todos los productos
 export const getProducts = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/products`);
+    const response = await fetch(`${API_BASE_URL}${API_PRODUCTS_ENDPOINT}`);
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`);
     }
@@ -20,7 +23,7 @@ export const getProducts = async () => {
 // Obtener producto por ID
 export const getProductById = async (id) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/products/${id}`);
+    const response = await fetch(`${API_BASE_URL}${API_PRODUCTS_ENDPOINT}/${id}`);
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`);
     }

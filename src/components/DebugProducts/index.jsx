@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { config } from '../../config/env';
 
 const DebugProducts = () => {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,10 @@ const DebugProducts = () => {
     const fetchProducts = async () => {
       try {
         console.log('🔍 Iniciando petición a MockAPI...');
-        const response = await fetch('https://69000051e02b16d1753fd8e6.mockapi.io/products');
+        const apiUrl = `${config.api.baseUrl}${config.api.productsEndpoint}`;
+        console.log('🌐 URL de API:', apiUrl);
+        
+        const response = await fetch(apiUrl);
         
         console.log('📡 Respuesta recibida:', response);
         console.log('📊 Status:', response.status);

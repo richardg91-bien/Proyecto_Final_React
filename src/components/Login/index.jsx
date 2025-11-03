@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Navigate, useLocation, Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../hooks/useAuth';
+import { config } from '../../config/env';
 
 const Login = () => {
   const { login, register, isAuthenticated } = useAuth();
@@ -100,17 +101,17 @@ const Login = () => {
   const handleDemoLogin = (type) => {
     if (type === 'admin') {
       setFormData({
-        email: 'admin@shopnow.com',
-        password: 'admin123',
+        email: config.auth.admin.email,
+        password: config.auth.admin.password,
         name: 'Administrador',
-        confirmPassword: 'admin123'
+        confirmPassword: config.auth.admin.password
       });
     } else {
       setFormData({
-        email: 'usuario@shopnow.com',
-        password: 'user123',
+        email: config.auth.user.email,
+        password: config.auth.user.password,
         name: 'Usuario Demo',
-        confirmPassword: 'user123'
+        confirmPassword: config.auth.user.password
       });
     }
   };
