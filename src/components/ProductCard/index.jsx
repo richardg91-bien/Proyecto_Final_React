@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { FiShoppingCart, FiHeart, FiStar } from 'react-icons/fi';
 import CartContext from '../../context/CartContext';
+import { DEFAULT_PRODUCT_IMAGE } from '../../utils/placeholder';
 import {
   ProductCard as Card,
   ProductImageContainer,
@@ -25,6 +26,16 @@ import {
 const ProductCard = ({ product }) => {
   const { cartProducts, setCartProducts } = useContext(CartContext);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [imgSrc, setImgSrc] = useState(product.img);
+  const [imgError, setImgError] = useState(false);
+
+  // Manejar error de carga de imagen
+  const handleImageError = () => {
+    if (!imgError) {
+      setImgError(true);
+      setImgSrc(DEFAULT_PRODUCT_IMAGE);
+    }
+  };
 
   const addToCart = () => {
     const existingProduct = cartProducts.find(p => p.id === product.id);
@@ -84,7 +95,12 @@ const ProductCard = ({ product }) => {
   return (
     <Card>
       <ProductImageContainer>
-        <ProductImage src={product.img} alt={product.name} />
+        <ProductImage 
+          src={imgSrc} 
+          alt={product.name}
+          onError={handleImageError}
+          loading="lazy"
+        />
         
         {badge && (
           <ProductBadge type={badge.type}>
