@@ -1,5 +1,6 @@
 //Dependencies
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Button, Card, Table, Modal, Toast, ToastContainer, Badge } from 'react-bootstrap';
 import { useAuth } from '../../hooks/useAuth';
 import { useProductsContext } from '../../hooks/useProductsContext';
@@ -88,15 +89,25 @@ const Admin = () => {
   }
 
   return (
-    <div className="admin-page bg-light min-vh-100">
-      <div className="container py-5">
-        <div className="row">
-          <div className="col-12">
-            {/* Header */}
-            <div className="d-flex justify-content-between align-items-center mb-4">
-              <div>
-                <h1 className="h2 fw-bold mb-1" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
-                  Panel de Administración
+    <>
+      <Helmet>
+        <title>Panel de Administración - Indumentaria Agat</title>
+        <meta 
+          name="description" 
+          content="Panel de administración de Indumentaria Agat. Gestión de productos, inventario y configuración de la tienda." 
+        />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+
+      <div className="admin-page bg-light min-vh-100">
+        <div className="container py-5">
+          <div className="row">
+            <div className="col-12">
+              {/* Header */}
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                  <h1 className="h2 fw-bold mb-1" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
+                    Panel de Administración
                 </h1>
                 <p className="text-muted mb-0" style={{fontFamily: 'Quicksand, sans-serif'}}>
                   Bienvenido, {user?.name}
@@ -382,7 +393,8 @@ const Admin = () => {
         productName={productToDelete?.name || productToDelete?.title || ''}
         isDeleting={isDeleting}
       />
-    </div>
+      </div>
+    </>
   );
 };
 

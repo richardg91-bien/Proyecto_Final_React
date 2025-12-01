@@ -1,18 +1,38 @@
 //Dependencies
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 //Internals
 
 const About = () => {
   return (
-    <div className="about-page bg-white min-vh-100">
-      <div className="container py-5">
-        <div className="row justify-content-center">
-          <div className="col-lg-10">
-            {/* Hero Section */}
-            <div className="text-center mb-5">
-              <h1 className="display-4 fw-light text-uppercase mb-4" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
-                Sobre Nosotros
-              </h1>
+    <>
+      <Helmet>
+        <title>Sobre Nosotros - Indumentaria Agat | Nuestra Historia</title>
+        <meta 
+          name="description" 
+          content="Conoce la historia de Indumentaria Agat. Desde 2020 ofrecemos moda de calidad y accesible para todos. Nuestra misión es hacer la moda accesible con estilo único y diseños exclusivos." 
+        />
+        <meta 
+          name="keywords" 
+          content="sobre nosotros, Indumentaria Agat, historia, empresa, misión, visión, valores, moda argentina" 
+        />
+        <meta property="og:title" content="Sobre Nosotros - Indumentaria Agat" />
+        <meta 
+          property="og:description" 
+          content="Descubre la historia detrás de Indumentaria Agat. Moda de calidad desde 2020." 
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+      <div className="about-page bg-white min-vh-100">
+        <div className="container py-5">
+          <div className="row justify-content-center">
+            <div className="col-lg-10">
+              {/* Hero Section */}
+              <div className="text-center mb-5">
+                <h1 className="display-4 fw-light text-uppercase mb-4" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
+                  Sobre Nosotros
+                </h1>
               <p className="lead text-muted" style={{fontFamily: 'Quicksand, sans-serif'}}>
                 Descubre la historia detrás de Indumentaria Agat
               </p>
@@ -111,7 +131,8 @@ const About = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

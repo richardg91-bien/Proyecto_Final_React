@@ -31,9 +31,21 @@ const Accessories = () => {
   return (
     <>
       <Helmet>
-        <title>Accesorios - Indumentaria Agat</title>
-        <meta name="description" content="Complementa tu estilo con nuestros accesorios exclusivos. Encuentra el detalle perfecto para cada look." />
-        <meta name="keywords" content="accesorios, complementos, moda, estilo, accesorios moda" />
+        <title>Accesorios - Indumentaria Agat | Complementos de Moda</title>
+        <meta 
+          name="description" 
+          content="Descubre nuestra colección de accesorios: bolsos, carteras, cinturones, bufandas, gorros y más. Complementa tu estilo con detalles únicos. ¡Envíos a todo el país!" 
+        />
+        <meta 
+          name="keywords" 
+          content="accesorios, complementos, bolsos, carteras, cinturones, bufandas, gorros, accesorios moda, detalles fashion" 
+        />
+        <meta property="og:title" content="Accesorios - Indumentaria Agat" />
+        <meta 
+          property="og:description" 
+          content="Complementa tu look con nuestros accesorios exclusivos. El detalle perfecto para cada ocasión." 
+        />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       <div className="accessories border-top border-4 border-dark bg-white">

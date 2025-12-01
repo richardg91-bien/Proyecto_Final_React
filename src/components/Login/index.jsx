@@ -1,5 +1,6 @@
 //Dependencies
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Navigate, useLocation, Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../hooks/useAuth';
@@ -129,24 +130,38 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page bg-light min-vh-100 d-flex align-items-center">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-6 col-lg-5">
-            <div className="card shadow-lg border-0">
-              <div className="card-body p-5">
-                {/* Header */}
-                <div className="text-center mb-4">
-                  {fromCart && (
-                    <div className="alert alert-info mb-3">
-                      <i className="bi bi-cart-plus me-2"></i>
-                      <strong>¡Para comprar necesitas una cuenta!</strong>
-                      <br />
-                      <small>Regístrate o inicia sesión para acceder a tu carrito de compras</small>
-                    </div>
-                  )}
-                  <h2 className="h3 fw-bold" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
-                    {mode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta'}
+    <>
+      <Helmet>
+        <title>{mode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta'} - Indumentaria Agat</title>
+        <meta 
+          name="description" 
+          content="Inicia sesión o crea tu cuenta en Indumentaria Agat. Accede a tu carrito, historial de compras y ofertas exclusivas. ¡Regístrate gratis!" 
+        />
+        <meta 
+          name="keywords" 
+          content="login, iniciar sesión, registro, crear cuenta, mi cuenta, Indumentaria Agat" 
+        />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+
+      <div className="login-page bg-light min-vh-100 d-flex align-items-center">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-md-6 col-lg-5">
+              <div className="card shadow-lg border-0">
+                <div className="card-body p-5">
+                  {/* Header */}
+                  <div className="text-center mb-4">
+                    {fromCart && (
+                      <div className="alert alert-info mb-3">
+                        <i className="bi bi-cart-plus me-2"></i>
+                        <strong>¡Para comprar necesitas una cuenta!</strong>
+                        <br />
+                        <small>Regístrate o inicia sesión para acceder a tu carrito de compras</small>
+                      </div>
+                    )}
+                    <h2 className="h3 fw-bold" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
+                      {mode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta'}
                   </h2>
                   <p className="text-muted" style={{fontFamily: 'Quicksand, sans-serif'}}>
                     {fromCart ? (
@@ -342,7 +357,8 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
