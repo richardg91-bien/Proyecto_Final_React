@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:analyze": "vite build --mode analyze",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lighthouse": "lighthouse http://localhost:4173 --view",
+    "lighthouse:mobile": "lighthouse http://localhost:4173 --preset=mobile --view"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
