@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { optimizeImageUrl, generateBlurPlaceholder } from '../../utils/imageOptimization';
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -57,17 +58,25 @@ const OptimizedImage = ({
   onError,
   className,
   style,
+  width, // Ancho deseado para optimización
+  quality = 85, // Calidad de imagen
   ...props
 }) => {
-  const [imageSrc, setImageSrc] = useState(src);
+  const imgRef = useRef(null);
+  const [imageSrc, setImageSrc] = useState(() => {
+    // Optimizar URL inicial si se proporciona ancho
+    return width ? optimizeImageUrl(src, { width, quality }) : src;
+  });
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showSkeleton, setShowSkeleton] = useState(true);
+  const [placeholder] = useState(() => generateBlurPlaceholder());
 
   useEffect(() => {
-    setImageSrc(src);
+    const optimizedSrc = width ? optimizeImageUrl(src, { width, quality }) : src;
+    setImageSrc(optimizedSrc);
     setImageLoaded(false);
     setShowSkeleton(true);
-  }, [src]);
+  }, [src, width, quality]);
 
   const handleLoad = (e) => {
     setImageLoaded(true);
@@ -88,6 +97,7 @@ const OptimizedImage = ({
     <ImageWrapper $bgColor={bgColor} className={className} style={style}>
       {showSkeleton && <Skeleton />}
       <img
+        ref={imgRef}
         src={imageSrc}
         alt={alt}
         loading={loading}
@@ -101,6 +111,8 @@ const OptimizedImage = ({
           objectFit: objectFit,
           transition: 'opacity 0.3s ease-in-out',
           opacity: imageLoaded ? 1 : 0,
+          background: showSkeleton ? `url(${placeholder})` : 'transparent',
+          backgroundSize: 'cover',
         }}
         {...props}
       />

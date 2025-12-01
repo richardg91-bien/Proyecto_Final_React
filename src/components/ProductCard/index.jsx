@@ -124,6 +124,9 @@ const ProductCard = ({ product }) => {
             loading="lazy"
             decoding="async"
             fetchPriority={product.isFeatured ? "high" : "low"}
+            width="400"
+            height="500"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </ImageWrapper>
         

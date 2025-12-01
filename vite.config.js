@@ -11,32 +11,42 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Separar node_modules en chunks específicos
+          // Separar node_modules en chunks específicos y optimizados
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
-              return 'react-vendor';
+            // Core React (crítico, siempre necesario)
+            if (id.includes('react/') || id.includes('react-dom/') || id.includes('scheduler')) {
+              return 'react-core';
             }
+            // Router (lazy load)
+            if (id.includes('react-router')) {
+              return 'router';
+            }
+            // Styled Components (crítico para estilos)
             if (id.includes('styled-components')) {
-              return 'styled-vendor';
+              return 'styled';
             }
+            // Icons (lazy, solo cuando se necesitan)
             if (id.includes('react-icons')) {
-              return 'icons-vendor';
+              return 'icons';
             }
+            // Bootstrap (layout, siempre necesario)
             if (id.includes('bootstrap')) {
-              return 'bootstrap-vendor';
+              return 'bootstrap';
             }
+            // Utils (toast, helmet - lazy)
             if (id.includes('react-toastify') || id.includes('react-helmet')) {
-              return 'utils-vendor';
+              return 'ui-libs';
             }
-            // Todo lo demás de node_modules
+            // Resto de node_modules (poco probable)
             return 'vendor';
           }
-          // Separar componentes grandes
-          if (id.includes('/src/components/Admin')) {
-            return 'admin';
+          // Componentes Admin (lazy load)
+          if (id.includes('/src/components/Admin') || id.includes('/src/components/ProductForm')) {
+            return 'admin-chunk';
           }
-          if (id.includes('/src/components/ProductForm')) {
-            return 'product-form';
+          // Context y Providers (críticos)
+          if (id.includes('/src/context/') || id.includes('/src/components/ProductsProvider')) {
+            return 'app-context';
           }
         },
         // Compresión de chunks
@@ -67,13 +77,13 @@ export default defineConfig({
     cssMinify: true, // Usar minificador default (esbuild)
     cssCodeSplit: true, // Split CSS por componente
     // Target para navegadores modernos
-    target: 'esnext',
+    target: 'es2020', // Mejor compatibilidad con código más pequeño
     // Chunk size warnings
-    chunkSizeWarningLimit: 500, // Más estricto
+    chunkSizeWarningLimit: 300, // Más estricto
     // Reportar tamaños comprimidos
     reportCompressedSize: true,
     // Inline assets pequeños
-    assetsInlineLimit: 4096, // 4kb
+    assetsInlineLimit: 2048, // 2kb - reducido para menor bundle inicial
   },
   
   // Optimizaciones de desarrollo
