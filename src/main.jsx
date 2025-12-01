@@ -1,7 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { ToastContainer } from 'react-toastify';
+import { HelmetProvider } from 'react-helmet-async';
 
 import './index.css';
 
@@ -26,40 +29,54 @@ import registerServiceWorker from './registerServiceWorker';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    <AuthProvider>
-      <ProductsProvider>
-        <BaseLayout>
-          <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/login" element={<Login />} />
-            <Route 
-              path="/cart" 
-              element={
-                <ProtectedRoute>
-                  <Cart />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin" 
-              element={
-                <ProtectedRoute requireAdmin={true}>
-                  <Admin />
-                </ProtectedRoute>
-              } 
-            />
-            <Route path="/women" element={<Women />} />
-            <Route path="/men" element={<Men />} />
-            <Route path="/clothes" element={<Clothes />} />
-            <Route path="/accessories" element={<Accessories />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/products/:id" element={<ShowProduct />} />
-          </Routes>
-        </BaseLayout>
-      </ProductsProvider>
-    </AuthProvider>
-  </BrowserRouter>
+  <HelmetProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <ProductsProvider>
+          <BaseLayout>
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="/login" element={<Login />} />
+              <Route 
+                path="/cart" 
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin" 
+                element={
+                  <ProtectedRoute requireAdmin={true}>
+                    <Admin />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route path="/women" element={<Women />} />
+              <Route path="/men" element={<Men />} />
+              <Route path="/clothes" element={<Clothes />} />
+              <Route path="/accessories" element={<Accessories />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/products/:id" element={<ShowProduct />} />
+            </Routes>
+          </BaseLayout>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        </ProductsProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  </HelmetProvider>
 );
 registerServiceWorker();
