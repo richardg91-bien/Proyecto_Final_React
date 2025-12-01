@@ -156,13 +156,21 @@ const Header = () => (
   <HeaderContainer className="d-flex flex-column align-items-center justify-content-center">
     {/* Logo Grande para Branding - Optimizado para LCP */}
     <LogoContainer>
-      <Logo 
-        as="img"
+      <img
         src={logo} 
         alt="Indumentaria Agat Logo"
         loading="eager"
         decoding="async"
-        {...{ fetchpriority: "high" }}
+        fetchPriority="high"
+        style={{
+          height: '150px',
+          width: 'auto',
+          borderRadius: '15px',
+          boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
+          transition: 'transform 0.3s ease',
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05) rotate(2deg)'}
+        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}
       />
     </LogoContainer>
     

@@ -3,10 +3,10 @@ import { toast } from 'react-toastify';
 import { FiShoppingCart, FiHeart, FiStar } from 'react-icons/fi';
 import CartContext from '../../context/CartContext';
 import { DEFAULT_PRODUCT_IMAGE } from '../../utils/placeholder';
+import styled from 'styled-components';
 import {
   ProductCard as Card,
   ProductImageContainer,
-  ProductImage,
   ProductBadge,
   FavoriteButton,
   ProductInfo,
@@ -22,6 +22,27 @@ import {
   RatingText,
   StockIndicator,
 } from './StyledComponents';
+
+// Wrapper para img nativo con estilos
+const ImageWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  ${Card}:hover & img {
+    transform: scale(1.1);
+  }
+`;
 
 const ProductCard = ({ product }) => {
   const { cartProducts, setCartProducts } = useContext(CartContext);
@@ -95,15 +116,16 @@ const ProductCard = ({ product }) => {
   return (
     <Card>
       <ProductImageContainer>
-        <ProductImage 
-          as="img"
-          src={imgSrc} 
-          alt={product.name}
-          onError={handleImageError}
-          loading="lazy"
-          decoding="async"
-          {...{ fetchpriority: product.isFeatured ? "high" : "low" }}
-        />
+        <ImageWrapper>
+          <img
+            src={imgSrc} 
+            alt={product.name}
+            onError={handleImageError}
+            loading="lazy"
+            decoding="async"
+            fetchPriority={product.isFeatured ? "high" : "low"}
+          />
+        </ImageWrapper>
         
         {badge && (
           <ProductBadge type={badge.type}>
