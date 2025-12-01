@@ -7,6 +7,10 @@ import { ToastContainer } from 'react-toastify';
 import { HelmetProvider } from 'react-helmet-async';
 
 import './index.css';
+import { addResourceHints } from './utils/resourceHints';
+
+// Agregar resource hints para optimizar carga
+addResourceHints();
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 

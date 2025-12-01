@@ -100,6 +100,8 @@ const ProductCard = ({ product }) => {
           alt={product.name}
           onError={handleImageError}
           loading="lazy"
+          decoding="async"
+          fetchpriority={product.isFeatured ? "high" : "low"}
         />
         
         {badge && (
@@ -112,6 +114,7 @@ const ProductCard = ({ product }) => {
           onClick={toggleFavorite}
           $isFavorite={isFavorite}
           title={isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+          aria-label={isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
         >
           <FiHeart />
         </FavoriteButton>

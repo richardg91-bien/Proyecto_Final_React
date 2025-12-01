@@ -154,11 +154,14 @@ const CallToAction = styled.div`
 
 const Header = () => (
   <HeaderContainer className="d-flex flex-column align-items-center justify-content-center">
-    {/* Logo Grande para Branding */}
+    {/* Logo Grande para Branding - Optimizado para LCP */}
     <LogoContainer>
       <Logo 
         src={logo} 
-        alt="Indumentaria Agat Logo" 
+        alt="Indumentaria Agat Logo"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
       />
     </LogoContainer>
     
