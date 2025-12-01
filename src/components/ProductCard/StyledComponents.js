@@ -26,22 +26,23 @@ export const ProductImageContainer = styled.div`
   width: 100%;
   padding-top: 100%; /* 1:1 Aspect Ratio */
   overflow: hidden;
-  background: ${theme.light};
+  padding-bottom: 100%; /* Mantener aspect ratio 1:1 */
 `;
 
-export const ProductImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-
-  ${ProductCard}:hover & {
-    transform: scale(1.1);
-  }
-`;
+// ProductImage ya no se usa - reemplazado por img nativo para evitar warnings con fetchPriority
+// export const ProductImage = styled.img`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   transition: transform 0.3s ease;
+//
+//   ${ProductCard}:hover & {
+//     transform: scale(1.1);
+//   }
+// `;
 
 // Badge for new/sale items
 export const ProductBadge = styled.span`
@@ -322,7 +323,7 @@ export const ActionButton = styled.button`
 export default {
   ProductCard,
   ProductImageContainer,
-  ProductImage,
+  // ProductImage - Removido (usar img nativo)
   ProductBadge,
   FavoriteButton,
   QuickViewButton,
