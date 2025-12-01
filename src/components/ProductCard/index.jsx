@@ -94,7 +94,7 @@ const ProductCard = ({ product }) => {
         
         <FavoriteButton
           onClick={toggleFavorite}
-          isFavorite={isFavorite}
+          $isFavorite={isFavorite}
           title={isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
         >
           <FiHeart />
@@ -136,7 +136,7 @@ const ProductCard = ({ product }) => {
         </ProductPrice>
 
         {/* Stock indicator */}
-        <StockIndicator stock={stock}>
+        <StockIndicator $stock={stock}>
           {stock === 0 ? 'Sin stock' : stock < 5 ? `Últimas ${stock} unidades` : 'En stock'}
         </StockIndicator>
 

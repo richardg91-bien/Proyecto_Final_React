@@ -76,7 +76,7 @@ export const FavoriteButton = styled.button`
   border-radius: 50%;
   border: none;
   background: ${theme.white};
-  color: ${props => props.isFavorite ? theme.danger : theme.textLight};
+  color: ${props => props.$isFavorite ? theme.danger : theme.textLight};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,7 +97,7 @@ export const FavoriteButton = styled.button`
 
   svg {
     font-size: 18px;
-    fill: ${props => props.isFavorite ? 'currentColor' : 'none'};
+    fill: ${props => props.$isFavorite ? 'currentColor' : 'none'};
   }
 `;
 
@@ -270,13 +270,13 @@ export const StockIndicator = styled.div`
   font-size: 0.75rem;
   font-weight: 600;
   background: ${props => {
-    if (props.stock === 0) return `${theme.danger}15`;
-    if (props.stock < 5) return `${theme.warning}15`;
+    if (props.$stock === 0) return `${theme.danger}15`;
+    if (props.$stock < 5) return `${theme.warning}15`;
     return `${theme.success}15`;
   }};
   color: ${props => {
-    if (props.stock === 0) return theme.danger;
-    if (props.stock < 5) return theme.warning;
+    if (props.$stock === 0) return theme.danger;
+    if (props.$stock < 5) return theme.warning;
     return theme.success;
   }};
 
