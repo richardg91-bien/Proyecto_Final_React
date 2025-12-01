@@ -47,7 +47,7 @@ const Skeleton = styled.div`
  * @param {string} alt - Texto alternativo
  * @param {string} fallback - URL de imagen de respaldo
  * @param {string} loading - "lazy" | "eager" (default: "lazy")
- * @param {string} fetchpriority - "high" | "low" | "auto" (default: "auto")
+ * @param {string} fetchPriority - "high" | "low" | "auto" (default: "auto")
  * @param {string} objectFit - Valor CSS object-fit (default: "cover")
  * @param {string} bgColor - Color de fondo del skeleton
  * @param {function} onLoad - Callback cuando la imagen se carga
@@ -58,7 +58,7 @@ const OptimizedImage = ({
   alt,
   fallback,
   loading = 'lazy',
-  fetchpriority = 'auto',
+  fetchPriority = 'auto',
   objectFit = 'cover',
   bgColor,
   onLoad,
@@ -100,7 +100,7 @@ const OptimizedImage = ({
         alt={alt}
         loading={loading}
         decoding="async"
-        fetchpriority={fetchpriority}
+        fetchPriority={fetchPriority}
         onLoad={handleLoad}
         onError={handleError}
         $loaded={imageLoaded}

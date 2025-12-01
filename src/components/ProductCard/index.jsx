@@ -101,7 +101,7 @@ const ProductCard = ({ product }) => {
           onError={handleImageError}
           loading="lazy"
           decoding="async"
-          fetchpriority={product.isFeatured ? "high" : "low"}
+          fetchPriority={product.isFeatured ? "high" : "low"}
         />
         
         {badge && (

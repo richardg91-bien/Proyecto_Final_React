@@ -161,7 +161,7 @@ const Header = () => (
         alt="Indumentaria Agat Logo"
         loading="eager"
         decoding="async"
-        fetchpriority="high"
+        fetchPriority="high"
       />
     </LogoContainer>
     

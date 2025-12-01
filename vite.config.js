@@ -64,7 +64,7 @@ export default defineConfig({
     // Generar sourcemaps para debugging
     sourcemap: false,
     // Optimizar CSS agresivamente
-    cssMinify: 'lightningcss',
+    cssMinify: true, // Usar minificador default (esbuild)
     cssCodeSplit: true, // Split CSS por componente
     // Target para navegadores modernos
     target: 'esnext',
