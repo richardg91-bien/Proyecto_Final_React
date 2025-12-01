@@ -96,11 +96,12 @@ const OptimizedImage = ({
     <ImageWrapper $bgColor={bgColor} className={className} style={style}>
       {showSkeleton && <Skeleton />}
       <StyledImage
+        as="img"
         src={imageSrc}
         alt={alt}
         loading={loading}
         decoding="async"
-        fetchPriority={fetchPriority}
+        {...{ fetchpriority: fetchPriority }}
         onLoad={handleLoad}
         onError={handleError}
         $loaded={imageLoaded}

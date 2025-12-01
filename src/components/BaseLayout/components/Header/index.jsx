@@ -157,11 +157,12 @@ const Header = () => (
     {/* Logo Grande para Branding - Optimizado para LCP */}
     <LogoContainer>
       <Logo 
+        as="img"
         src={logo} 
         alt="Indumentaria Agat Logo"
         loading="eager"
         decoding="async"
-        fetchPriority="high"
+        {...{ fetchpriority: "high" }}
       />
     </LogoContainer>
     

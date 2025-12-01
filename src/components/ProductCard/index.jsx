@@ -96,12 +96,13 @@ const ProductCard = ({ product }) => {
     <Card>
       <ProductImageContainer>
         <ProductImage 
+          as="img"
           src={imgSrc} 
           alt={product.name}
           onError={handleImageError}
           loading="lazy"
           decoding="async"
-          fetchPriority={product.isFeatured ? "high" : "low"}
+          {...{ fetchpriority: product.isFeatured ? "high" : "low" }}
         />
         
         {badge && (
