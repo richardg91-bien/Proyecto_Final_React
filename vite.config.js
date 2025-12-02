@@ -90,13 +90,21 @@ export default defineConfig({
           'ui-vendor': ['react-toastify', 'react-helmet', 'styled-components'],
           'icons-vendor': ['react-icons'],
         },
-        // Optimización de nombres de archivos CSS
+        // Optimización de nombres de archivos
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name.endsWith('.css')) {
+          // Excluir archivos .jsx del output
+          const name = assetInfo.name || '';
+          if (name.endsWith('.jsx') || name.endsWith('.js')) {
+            return 'assets/[name]-[hash].js';
+          }
+          if (name.endsWith('.css')) {
             return 'assets/[name]-[hash][extname]';
           }
           return 'assets/[name]-[hash][extname]';
         },
+        // Configuración de chunks de JavaScript
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
       },
     },
     // Aumentar el límite de advertencia de chunk
