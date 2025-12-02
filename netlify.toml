@@ -2,15 +2,23 @@
   publish = "dist"
   command = "npm run build"
 
+# Excluir archivos estáticos de la redirección SPA
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/robots.txt"
+  to = "/robots.txt"
   status = 200
 
 [[redirects]]
   from = "/service-worker.js"
   to = "/404.html"
   status = 404
+
+# Redirección SPA para rutas de React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {path = ["!/assets/*", "!/images/*", "!/*.js", "!/*.css", "!/*.png", "!/*.jpg", "!/*.svg", "!/*.ico", "!/robots.txt"]}
 
 [build.environment]
   NODE_VERSION = "18"
