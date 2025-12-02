@@ -14,6 +14,8 @@ export default defineConfig({
         pure_funcs: ['console.log', 'console.info', 'console.debug'], // Eliminar funciones específicas
       },
     },
+    // CSS Code splitting
+    cssCodeSplit: true,
     // Code splitting para lazy loading
     rollupOptions: {
       output: {
@@ -24,9 +26,19 @@ export default defineConfig({
           'ui-vendor': ['react-toastify', 'react-helmet', 'styled-components'],
           'icons-vendor': ['react-icons'],
         },
+        // Optimización de nombres de archivos CSS
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name.endsWith('.css')) {
+            return 'assets/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        },
       },
     },
     // Aumentar el límite de advertencia de chunk
     chunkSizeWarningLimit: 600,
+  },
+  css: {
+    devSourcemap: false,
   },
 })

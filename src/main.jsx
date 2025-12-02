@@ -1,11 +1,15 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'react-toastify/dist/ReactToastify.css';
+// Estilos críticos primero (above the fold)
+import './critical.css';
+
+// Lazy load de estilos no críticos
+import('bootstrap/dist/css/bootstrap.min.css');
+import('bootstrap-icons/font/bootstrap-icons.css');
+import('react-toastify/dist/ReactToastify.css');
+import('./index.css');
+
 import React, { lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
-
-import './index.css';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
