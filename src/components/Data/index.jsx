@@ -6,7 +6,7 @@ const products = [
     price: 16.99,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/kOhL6k/img1.jpg",
+    img: "https://placehold.co/400x400/8B6F47/white?text=Brown+Shirt",
     inCart: false,
     category: "clothes"
   },
@@ -17,7 +17,7 @@ const products = [
     price: 4.99,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/nNmKz5/img2.jpg",
+    img: "https://placehold.co/400x400/D2B48C/white?text=Light+Brown",
     inCart: false,
     category: "clothes"
   },
@@ -28,7 +28,7 @@ const products = [
     price: 14.99,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/n6iMCQ/img3.jpg",
+    img: "https://placehold.co/400x400/808080/white?text=Grey+Shirt",
     inCart: false,
     category: "clothes"
   },
@@ -39,7 +39,7 @@ const products = [
     price: 20.00,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/dVfORk/img4.jpg",
+    img: "https://placehold.co/400x400/A0522D/white?text=Warm+Hoodie",
     inCart: false,
     category: "clothes"
   },
@@ -50,7 +50,7 @@ const products = [
     price: 4.99,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/jpMxmk/img5.jpg",
+    img: "https://placehold.co/400x400/C0C0C0/333?text=Light+Grey",
     inCart: false,
     category: "clothes"
   },
@@ -61,7 +61,7 @@ const products = [
     price: 19.99,
     gender: "women",
     type: "blouse",
-    img: "https://image.ibb.co/mJppz5/img6.jpg",
+    img: "https://placehold.co/400x400/A52A2A/white?text=Red+Blouse",
     inCart: false,
     category: "clothes"
   },
@@ -72,7 +72,7 @@ const products = [
     price: 6.00,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/eZiSmk/img7.jpg",
+    img: "https://placehold.co/400x400/505050/white?text=Dark+Grey",
     inCart: false,
     category: "clothes"
   },
@@ -83,7 +83,7 @@ const products = [
     price: 14.99,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/dyCysQ/img8.jpg",
+    img: "https://placehold.co/400x400/FFFFFF/333?text=White+Shirt",
     inCart: false,
     category: "clothes"
   },
@@ -94,7 +94,7 @@ const products = [
     price: 20.99,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/eOYre5/img10.jpg",
+    img: "https://placehold.co/400x400/000000/white?text=Black+Shirt",
     inCart: false,
     category: "clothes"
   },
@@ -105,7 +105,7 @@ const products = [
     price: 4.99,
     gender: "women",
     type: "shirt",
-    img: "https://image.ibb.co/f6gcK5/img9.jpg",
+    img: "https://placehold.co/400x400/FF69B4/white?text=Hoodie",
     inCart: false,
     category: "clothes"
   },
@@ -116,7 +116,7 @@ const products = [
     price: 45.99,
     gender: "women",
     type: "watch",
-    img: "https://images.pexels.com/photos/69046/watch-wrist-watch-packshot-time-69046.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb",
+    img: "https://placehold.co/400x400/FFD700/333?text=Gold+Watch",
     inCart: false,
     category: "accessories"
   },
@@ -127,7 +127,7 @@ const products = [
     price: 14.99,
     gender: "women",
     type: "necklace",
-    img: "https://images.pexels.com/photos/221550/pexels-photo-221550.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb",
+    img: "https://placehold.co/400x400/2F4F4F/white?text=Necklace",
     inCart: false,
     category: "accessories"
   },
@@ -138,7 +138,7 @@ const products = [
     price: 10.99,
     gender: "men",
     type: "shirt",
-    img: "http://media.istockphoto.com/photos/smiling-young-man-in-blank-black-tshirt-picture-id464946525?k=6&m=464946525&s=612x612&w=0&h=KAjCFoJGDcFcx8R33Tq1vzqbfixh1XwGpFeiRNoTkRQ=",
+    img: "https://placehold.co/400x400/000000/white?text=Black+TShirt",
     inCart: false,
     category: "clothes"
   },
@@ -149,7 +149,7 @@ const products = [
     price: 14.99,
     gender: "men",
     type: "shirt",
-    img: "http://media.istockphoto.com/photos/portrait-of-young-man-wearing-tshirt-picture-id465207699?k=6&m=465207699&s=612x612&w=0&h=wSacC0bmcrekig1DW8lOwH7y3X0e4R9266-TuivVQJA=",
+    img: "https://placehold.co/400x400/808080/white?text=Grey+Tanktop",
     inCart: false,
     category: "clothes"
   },
@@ -160,7 +160,7 @@ const products = [
     price: 20.99,
     gender: "men",
     type: "shirt",
-    img: "http://media.istockphoto.com/photos/young-man-wearing-a-white-shirt-picture-id465331977?k=6&m=465331977&s=612x612&w=0&h=-K3c5eE2dZGmg6d5BrBfxOvcHRP7PwHrylyjuEVjbZo=",
+    img: "https://placehold.co/400x400/F5F5F5/333?text=White+Shirt",
     inCart: false,
     category: "clothes"
   },
@@ -171,7 +171,7 @@ const products = [
     price: 13.99,
     gender: "men",
     type: "shirt",
-    img: "http://media.istockphoto.com/photos/young-man-looks-to-the-side-picture-id184616842?k=6&m=184616842&s=612x612&w=0&h=SmtsffRByKDH4_HtzGY8bWvHgH8o_4epWVPogvfJXnk=",
+    img: "https://placehold.co/400x400/8B4513/white?text=Brown+Shirt",
     inCart: false,
     category: "clothes"
   },
@@ -182,7 +182,7 @@ const products = [
     price: 13.99,
     gender: "men",
     type: "tie",
-    img: "http://image.11st.my/g3/2/7/4/6/7/1/1274671_B_V5.jpg",
+    img: "https://placehold.co/400x400/1C1C1C/white?text=Black+Tie",
     inCart: false,
     category: "accessories"
   },
@@ -193,7 +193,7 @@ const products = [
     price: 9.99,
     gender: "men",
     type: "shirt",
-    img: "http://media.istockphoto.com/photos/smiling-man-in-a-black-t-shirt-picture-id520883622?k=6&m=520883622&s=612x612&w=0&h=XuxfQE0EOo_uWqA8SzNJvZ9Vn-sKR_cT4J9GRIudE4U=",
+    img: "https://placehold.co/400x400/0F0F0F/white?text=Black+Shirt",
     inCart: false,
     category: "clothes"
   },
@@ -204,7 +204,7 @@ const products = [
     price: 35.99,
     gender: "men",
     type: "tie",
-    img: "http://www.theethicalman.com/uploads/4/8/0/0/4800645/3035404_orig.png",
+    img: "https://placehold.co/400x400/2C3E50/white?text=4Pack+Ties",
     inCart: false,
     category: "accessories"
   },
@@ -215,7 +215,7 @@ const products = [
     price: 15.99,
     gender: "men",
     type: "tie",
-    img: "http://static.becomegorgeous.com/img/articles/what_does_your_mans_tie_tell_about_his_personality_.jpg",
+    img: "https://placehold.co/400x400/34495E/white?text=Black+Tie",
     inCart: false,
     category: "accessories"
   },
