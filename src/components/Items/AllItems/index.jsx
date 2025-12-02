@@ -1,24 +1,25 @@
 // Dependencies
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { Pagination } from 'react-bootstrap';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useProducts } from '../../../hooks/useProducts';
 import { useCartActions } from '../../../hooks/useCartActions';
+import ProductCard from '../../ProductCard';
 import Spinner from '../../Spinner';
 import ErrorMessage from '../../ErrorMessage';
+import SEO from '../../SEO';
 
 
 const AllItems = () => {
   const { products, loading, error, refetch } = useProducts();
   const { addToCart } = useCartActions();
-  const [showSuccess, setShowSuccess] = useState(false);
+  
+  // Estado de paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
 
   const handleAddToCart = (product) => {
-    addToCart(product, () => {
-      // Mostrar notificación de éxito
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000);
-    });
+    addToCart(product);
   };
 
   if (loading) {
@@ -29,92 +30,126 @@ const AllItems = () => {
     return <ErrorMessage message={error} onRetry={refetch} />;
   }
 
+  // Calcular productos para la página actual
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(products.length / productsPerPage);
+
+  // Cambiar página
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Generar números de página para mostrar
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxPagesToShow = 5;
+    
+    if (totalPages <= maxPagesToShow) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1);
+        pages.push('...');
+        for (let i = totalPages - 3; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        pages.push('...');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      }
+    }
+    
+    return pages;
+  };
+
   return (
-    <div>
-      {showSuccess && (
-        <div className="alert alert-success alert-dismissible position-fixed top-0 end-0 m-3" style={{zIndex: 1050, fontSize: '12px', padding: '6px 10px', maxWidth: '250px'}}>
-          <i className="bi bi-check-circle me-1"></i>
-          <small>Producto agregado</small>
-          <button type="button" className="btn-close btn-close-sm ms-2" onClick={() => setShowSuccess(false)} style={{fontSize: '10px', padding: '2px'}}></button>
+    <>
+      <SEO
+        title="Todos los Productos"
+        description="Explora nuestra colección completa de productos de moda y accesorios. Encuentra lo que necesitas con la mejor calidad y precio."
+        keywords="productos, catálogo, moda, ropa, accesorios, tienda online"
+      />
+      <div className="container-fluid py-4">
+        <div className="row mb-4">
+          <div className="col-12">
+            <h2 className="text-center mb-2" style={{ fontFamily: 'Lato, sans-serif' }}>
+              Todos los Productos
+            </h2>
+          <p className="text-center text-muted" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+            Mostrando {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, products.length)} de {products.length} productos
+          </p>
         </div>
-      )}
-      <div
-        className="d-flex flex-wrap justify-content-center align-items-center w-100"
-        style={{ minHeight: '60vh' }}
-      >
-      {products.map((product) => (
-        <div
-          key={product.id}
-          className="card h-100 m-2 shadow-sm"
-          style={{
-            width: '18rem',
-            transition: 'transform 0.2s ease-in-out'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-        >
-          <Link to={`/products/${product.id}`} className="text-decoration-none">
-            <div className="card-img-top-wrapper" style={{height: '250px', overflow: 'hidden'}}>
-              <img
-                alt={product.name}
-                src={product.img}
-                className="card-img-top"
-                style={{ 
-                  height: '100%', 
-                  objectFit: 'cover', 
-                  width: '100%',
-                  transition: 'transform 0.3s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+      </div>
+
+      <div className="row">
+        <div className="col-12">
+          <div
+            className="d-flex flex-wrap justify-content-center align-items-start"
+            style={{ minHeight: '60vh' }}
+          >
+            {currentProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAddToCart={handleAddToCart}
               />
-            </div>
-          </Link>
-          
-          <div className="card-body d-flex flex-column">
-            <Link to={`/products/${product.id}`} className="text-decoration-none">
-              <h5 className="card-title text-dark mb-2" style={{
-                fontSize: '1.1rem',
-                fontWeight: '600',
-                height: '2.6em',
-                overflow: 'hidden',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical'
-              }}>
-                {product.name}
-              </h5>
-              <p className="card-text text-muted small mb-3" style={{
-                height: '3em',
-                overflow: 'hidden',
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                lineHeight: '1.5'
-              }}>
-                {product.description}
-              </p>
-            </Link>
-            
-            <div className="mt-auto">
-              <div className="d-flex justify-content-between align-items-center">
-                <span className="h5 text-success fw-bold mb-0">${product.price}</span>
-                <Button 
-                  variant="primary" 
-                  size="sm" 
-                  className="btn-sm"
-                  onClick={() => handleAddToCart(product)}
-                  style={{borderRadius: '20px'}}
-                >
-                  <i className="bi bi-cart-plus"></i>
-                </Button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      ))}
       </div>
-    </div>
+
+      {/* Paginación */}
+      {totalPages > 1 && (
+        <div className="row mt-5">
+          <div className="col-12">
+            <Pagination className="justify-content-center">
+              <Pagination.Prev
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                aria-label="Página anterior"
+              >
+                <FaChevronLeft />
+              </Pagination.Prev>
+
+              {getPageNumbers().map((page, index) => (
+                page === '...' ? (
+                  <Pagination.Ellipsis key={`ellipsis-${index}`} disabled />
+                ) : (
+                  <Pagination.Item
+                    key={page}
+                    active={page === currentPage}
+                    onClick={() => handlePageChange(page)}
+                    aria-label={`Ir a página ${page}`}
+                    aria-current={page === currentPage ? 'page' : undefined}
+                  >
+                    {page}
+                  </Pagination.Item>
+                )
+              ))}
+
+              <Pagination.Next
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                aria-label="Página siguiente"
+              >
+                <FaChevronRight />
+              </Pagination.Next>
+            </Pagination>
+          </div>
+        </div>
+      )}
+      </div>
+    </>
   );
 };
 

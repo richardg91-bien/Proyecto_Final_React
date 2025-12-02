@@ -1,24 +1,25 @@
 //Dependencies
 import React, { useState } from 'react';
-import { Button, Card, Table, Modal, Toast, ToastContainer, Badge } from 'react-bootstrap';
+import { Button, Card, Table, Modal, Badge } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { FaPlus, FaEdit, FaTrash, FaBox, FaDollarSign, FaUsers, FaClipboardList } from 'react-icons/fa';
 import { useAuth } from '../../hooks/useAuth';
 import { useProductsContext } from '../../hooks/useProductsContext';
 import Spinner from '../Spinner';
 import ErrorMessage from '../ErrorMessage';
 import ProductForm from '../ProductForm';
 import ConfirmDeleteModal from '../ConfirmDeleteModal';
+import SEO from '../SEO';
 
 const Admin = () => {
   const { user } = useAuth();
   const { products, loading, error, eliminarProducto, esProductoEditable, refetch } = useProductsContext();
   const [showProductForm, setShowProductForm] = useState(false);
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formMode, setFormMode] = useState('add'); // 'add' o 'edit'
-  const [lastAddedProduct, setLastAddedProduct] = useState(null);
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalSales: 0,
@@ -53,13 +54,12 @@ const Admin = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       eliminarProducto(productToDelete.id);
-      setShowSuccessToast(true);
-      setLastAddedProduct({ name: productToDelete.name });
-      
-      // Ocultar toast después de 3 segundos
-      setTimeout(() => setShowSuccessToast(false), 3000);
+      toast.success(`Producto "${productToDelete.name}" eliminado correctamente`, {
+        icon: '🗑️'
+      });
     } catch (error) {
       console.error('Error al eliminar producto:', error);
+      toast.error('Error al eliminar el producto. Intenta nuevamente.');
     } finally {
       setIsDeleting(false);
       setShowDeleteModal(false);
@@ -88,7 +88,13 @@ const Admin = () => {
   }
 
   return (
-    <div className="admin-page bg-light min-vh-100">
+    <>
+      <SEO
+        title="Panel de Administración"
+        description="Gestiona productos, inventario y pedidos desde el panel de administración de Indumentaria Agat."
+        keywords="admin, administración, panel, gestión, productos"
+      />
+      <div className="admin-page bg-light min-vh-100">
       <div className="container py-5">
         <div className="row">
           <div className="col-12">
@@ -103,7 +109,7 @@ const Admin = () => {
                 </p>
               </div>
               <div className="badge bg-success px-3 py-2">
-                <i className="bi bi-shield-check me-2"></i>
+                <FaShieldAlt className="me-2" />
                 Administrador
               </div>
             </div>
@@ -113,7 +119,7 @@ const Admin = () => {
               <div className="col-md-3 mb-3">
                 <Card className="border-0 shadow-sm h-100">
                   <Card.Body className="text-center">
-                    <i className="bi bi-box-seam text-primary mb-3" style={{fontSize: '3rem'}}></i>
+                    <FaBox className="text-primary mb-3" style={{fontSize: '3rem'}} />
                     <h3 className="h4 fw-bold">{stats.totalProducts}</h3>
                     <p className="text-muted mb-0" style={{fontFamily: 'Quicksand, sans-serif'}}>
                       Productos
@@ -125,7 +131,7 @@ const Admin = () => {
               <div className="col-md-3 mb-3">
                 <Card className="border-0 shadow-sm h-100">
                   <Card.Body className="text-center">
-                    <i className="bi bi-graph-up text-success mb-3" style={{fontSize: '3rem'}}></i>
+                    <FaDollarSign className="text-success mb-3" style={{fontSize: '3rem'}} />
                     <h3 className="h4 fw-bold">${stats.totalSales.toLocaleString()}</h3>
                     <p className="text-muted mb-0" style={{fontFamily: 'Quicksand, sans-serif'}}>
                       Ventas Totales
@@ -137,7 +143,7 @@ const Admin = () => {
               <div className="col-md-3 mb-3">
                 <Card className="border-0 shadow-sm h-100">
                   <Card.Body className="text-center">
-                    <i className="bi bi-people text-info mb-3" style={{fontSize: '3rem'}}></i>
+                    <FaUsers className="text-info mb-3" style={{fontSize: '3rem'}} />
                     <h3 className="h4 fw-bold">{stats.totalUsers}</h3>
                     <p className="text-muted mb-0" style={{fontFamily: 'Quicksand, sans-serif'}}>
                       Usuarios
@@ -149,7 +155,7 @@ const Admin = () => {
               <div className="col-md-3 mb-3">
                 <Card className="border-0 shadow-sm h-100">
                   <Card.Body className="text-center">
-                    <i className="bi bi-clock text-warning mb-3" style={{fontSize: '3rem'}}></i>
+                    <FaClipboardList className="text-warning mb-3" style={{fontSize: '3rem'}} />
                     <h3 className="h4 fw-bold">{stats.pendingOrders}</h3>
                     <p className="text-muted mb-0" style={{fontFamily: 'Quicksand, sans-serif'}}>
                       Pedidos Pendientes
@@ -172,8 +178,9 @@ const Admin = () => {
                         variant="primary" 
                         size="sm"
                         onClick={handleAddProduct}
+                        aria-label="Agregar nuevo producto"
                       >
-                        <i className="bi bi-plus-circle me-2"></i>
+                        <FaPlus className="me-2" />
                         Nuevo Producto
                       </Button>
                     </div>
@@ -243,8 +250,9 @@ const Admin = () => {
                                     size="sm"
                                     onClick={() => handleEditProduct(product)}
                                     title="Editar producto"
+                                    aria-label={`Editar ${product.name}`}
                                   >
-                                    <i className="bi bi-pencil"></i>
+                                    <FaEdit />
                                   </Button>
                                   {esProductoEditable(product.id) && (
                                     <Button 
@@ -252,8 +260,9 @@ const Admin = () => {
                                       size="sm"
                                       onClick={() => handleDeleteProduct(product)}
                                       title="Eliminar producto"
+                                      aria-label={`Eliminar ${product.name}`}
                                     >
-                                      <i className="bi bi-trash"></i>
+                                      <FaTrash />
                                     </Button>
                                   )}
                                 </div>
@@ -350,27 +359,6 @@ const Admin = () => {
         </Modal.Body>
       </Modal>
 
-      {/* Toast de éxito */}
-      <ToastContainer position="top-end" className="p-3">
-        <Toast 
-          show={showSuccessToast} 
-          onClose={() => setShowSuccessToast(false)}
-          delay={4000}
-          autohide
-          bg="success"
-        >
-          <Toast.Header>
-            <i className="bi bi-check-circle-fill text-success me-2"></i>
-            <strong className="me-auto">
-              {formMode === 'edit' ? 'Producto Actualizado' : 'Producto Agregado'}
-            </strong>
-          </Toast.Header>
-          <Toast.Body className="text-white">
-            <strong>{lastAddedProduct?.name}</strong> se procesó exitosamente.
-          </Toast.Body>
-        </Toast>
-      </ToastContainer>
-
       {/* Modal de confirmación de eliminación */}
       <ConfirmDeleteModal
         show={showDeleteModal}
@@ -382,7 +370,8 @@ const Admin = () => {
         productName={productToDelete?.name || productToDelete?.title || ''}
         isDeleting={isDeleting}
       />
-    </div>
+      </div>
+    </>
   );
 };
 

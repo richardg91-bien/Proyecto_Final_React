@@ -4,6 +4,7 @@ import { Navigate, useLocation, Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../hooks/useAuth';
 import { config } from '../../config/env';
+import SEO from '../SEO';
 
 const Login = () => {
   const { login, register, isAuthenticated } = useAuth();
@@ -129,8 +130,14 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page bg-light min-vh-100 d-flex align-items-center">
-      <div className="container">
+    <>
+      <SEO
+        title={mode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta'}
+        description="Accede a tu cuenta en Indumentaria Agat para gestionar tus compras, ver tu carrito y disfrutar de una experiencia personalizada."
+        keywords="login, iniciar sesión, registro, cuenta, usuario"
+      />
+      <div className="login-page bg-light min-vh-100 d-flex align-items-center">
+        <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-5">
             <div className="card shadow-lg border-0">
@@ -342,7 +349,8 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

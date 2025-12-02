@@ -5,6 +5,14 @@ import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../../../../hooks/useAuth';
 import CartContext from '../../../../../context/CartContext';
 import logo from '../../../../../assets/logo1.jpeg';
+import { 
+  FaHome, FaShoppingCart, FaUser, FaShieldAlt, 
+  FaSignInAlt, FaSignOutAlt, FaUserCircle, FaBars, FaTimes 
+} from 'react-icons/fa';
+import { 
+  BsFillBagFill, BsGem, BsInfoCircle, BsEnvelope 
+} from 'react-icons/bs';
+import { GiClothes } from 'react-icons/gi';
 
 const Navbar = () => {
   const { isAuthenticated, user, logout, isAdmin } = useAuth();
@@ -65,7 +73,7 @@ const Navbar = () => {
         }}
       >
         <span className="text-white" style={{ fontSize: '1.5rem' }}>
-          <i className={`bi ${isMenuOpen ? 'bi-x' : 'bi-list'}`}></i>
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
         </span>
       </button>
 
@@ -103,7 +111,7 @@ const Navbar = () => {
               to="/"
               onClick={closeMenu}
             >
-              <i className="bi bi-house me-2"></i>
+              <FaHome className="me-2" />
               Inicio
             </NavLink>
           </li>
@@ -119,7 +127,7 @@ const Navbar = () => {
               to="/women"
               onClick={closeMenu}
             >
-              <i className="bi bi-person-dress me-2"></i>
+              <FaUser className="me-2" />
               Mujer
             </NavLink>
           </li>
@@ -135,7 +143,7 @@ const Navbar = () => {
               to="/men"
               onClick={closeMenu}
             >
-              <i className="bi bi-person me-2"></i>
+              <FaUser className="me-2" />
               Hombre
             </NavLink>
           </li>
@@ -151,7 +159,7 @@ const Navbar = () => {
               to="/clothes"
               onClick={closeMenu}
             >
-              <i className="bi bi-bag me-2"></i>
+              <GiClothes className="me-2" />
               Ropa
             </NavLink>
           </li>
@@ -167,7 +175,7 @@ const Navbar = () => {
               to="/accessories"
               onClick={closeMenu}
             >
-              <i className="bi bi-gem me-2"></i>
+              <BsGem className="me-2" />
               Accesorios
             </NavLink>
           </li>
@@ -183,7 +191,7 @@ const Navbar = () => {
               to="/about"
               onClick={closeMenu}
             >
-              <i className="bi bi-info-circle me-2"></i>
+              <BsInfoCircle className="me-2" />
               About
             </NavLink>
           </li>
@@ -199,7 +207,7 @@ const Navbar = () => {
               to="/contact"
               onClick={closeMenu}
             >
-              <i className="bi bi-envelope me-2"></i>
+              <BsEnvelope className="me-2" />
               Contacto
             </NavLink>
           </li>
@@ -209,8 +217,8 @@ const Navbar = () => {
         <div className={`navbar-actions d-flex ${isMenuOpen ? 'flex-column mt-3' : 'flex-row'} align-items-${isMenuOpen ? 'start' : 'center'} gap-2`}>
           {/* Carrito */}
           <NavLink to="/cart" className="text-decoration-none" onClick={closeMenu}>
-            <Button variant="outline-light" size="sm" className="position-relative">
-              <i className="bi bi-cart"></i>
+            <Button variant="outline-light" size="sm" className="position-relative" aria-label="Ver carrito de compras">
+              <FaShoppingCart />
               {totalItemsInCart > 0 && (
                 <span 
                   className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
@@ -226,8 +234,8 @@ const Navbar = () => {
           {/* Admin Link (solo si es admin) */}
           {isAuthenticated && isAdmin() && (
             <NavLink to="/admin" className="text-decoration-none" onClick={closeMenu}>
-              <Button variant="outline-warning" size="sm">
-                <i className="bi bi-shield-check me-1"></i>
+              <Button variant="outline-warning" size="sm" aria-label="Panel de administración">
+                <FaShieldAlt className="me-1" />
                 Admin
               </Button>
             </NavLink>
@@ -238,7 +246,7 @@ const Navbar = () => {
             <div className={`d-flex ${isMenuOpen ? 'flex-column' : 'flex-row'} align-items-${isMenuOpen ? 'start' : 'center'} gap-2`}>
               {/* User Info */}
               <span className="text-white small" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                <i className="bi bi-person-circle me-1"></i>
+                <FaUserCircle className="me-1" />
                 {user?.name}
               </span>
               
@@ -251,15 +259,16 @@ const Navbar = () => {
                   closeMenu();
                 }}
                 title="Cerrar Sesión"
+                aria-label="Cerrar sesión"
               >
-                <i className="bi bi-box-arrow-right"></i>
+                <FaSignOutAlt />
                 {isMenuOpen && <span className="ms-2">Salir</span>}
               </Button>
             </div>
           ) : (
             <Link to="/login" className="text-decoration-none" onClick={closeMenu}>
-              <Button variant="outline-success" size="sm">
-                <i className="bi bi-box-arrow-in-right me-1"></i>
+              <Button variant="outline-success" size="sm" aria-label="Iniciar sesión">
+                <FaSignInAlt className="me-1" />
                 Iniciar Sesión
               </Button>
             </Link>
