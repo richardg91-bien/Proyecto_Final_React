@@ -1,5 +1,5 @@
 // Dependencies
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Pagination } from 'react-bootstrap';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useProducts } from '../../../hooks/useProducts';
@@ -8,6 +8,7 @@ import ProductCard from '../../ProductCard';
 import Spinner from '../../Spinner';
 import ErrorMessage from '../../ErrorMessage';
 import SEO from '../../SEO';
+import SearchBar from '../../SearchBar';
 
 
 const AllItems = () => {
@@ -17,9 +18,34 @@ const AllItems = () => {
   // Estado de paginación
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12;
+  
+  // Estado de búsqueda
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleAddToCart = (product) => {
     addToCart(product);
+  };
+  
+  // Filtrar productos según término de búsqueda
+  const filteredProducts = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return products;
+    }
+    
+    const searchLower = searchTerm.toLowerCase();
+    return products.filter(product => {
+      const nameMatch = product.name?.toLowerCase().includes(searchLower);
+      const categoryMatch = product.category?.toLowerCase().includes(searchLower);
+      const descriptionMatch = product.description?.toLowerCase().includes(searchLower);
+      
+      return nameMatch || categoryMatch || descriptionMatch;
+    });
+  }, [products, searchTerm]);
+  
+  // Resetear a página 1 cuando cambia la búsqueda
+  const handleSearchChange = (newSearchTerm) => {
+    setSearchTerm(newSearchTerm);
+    setCurrentPage(1);
   };
 
   if (loading) {
@@ -30,11 +56,11 @@ const AllItems = () => {
     return <ErrorMessage message={error} onRetry={refetch} />;
   }
 
-  // Calcular productos para la página actual
+  // Calcular productos para la página actual (usando productos filtrados)
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   // Cambiar página
   const handlePageChange = (pageNumber) => {
@@ -85,11 +111,25 @@ const AllItems = () => {
             <h2 className="text-center mb-2" style={{ fontFamily: 'Lato, sans-serif' }}>
               Todos los Productos
             </h2>
-          <p className="text-center text-muted" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-            Mostrando {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, products.length)} de {products.length} productos
-          </p>
+            <p className="text-center text-muted" style={{ fontFamily: 'Quicksand, sans-serif' }}>
+              {searchTerm ? (
+                <>Mostrando {filteredProducts.length} {filteredProducts.length === 1 ? 'resultado' : 'resultados'} para "{searchTerm}"</>
+              ) : (
+                <>Mostrando {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, filteredProducts.length)} de {filteredProducts.length} productos</>
+              )}
+            </p>
+          </div>
         </div>
-      </div>
+        
+        {/* Barra de búsqueda */}
+        <div className="row mb-4">
+          <div className="col-12 col-lg-8 mx-auto">
+            <SearchBar 
+              searchTerm={searchTerm}
+              onSearchChange={handleSearchChange}
+            />
+          </div>
+        </div>
 
       <div className="row">
         <div className="col-12">
@@ -97,13 +137,29 @@ const AllItems = () => {
             className="d-flex flex-wrap justify-content-center align-items-start"
             style={{ minHeight: '60vh' }}
           >
-            {currentProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onAddToCart={handleAddToCart}
-              />
-            ))}
+            {currentProducts.length > 0 ? (
+              currentProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
+              ))
+            ) : (
+              <div className="text-center py-5">
+                <i className="bi bi-search" style={{ fontSize: '3rem', color: '#ccc' }}></i>
+                <h4 className="mt-3 text-muted">No se encontraron productos</h4>
+                <p className="text-muted">
+                  Intenta con otros términos de búsqueda o{' '}
+                  <button 
+                    className="btn btn-link p-0" 
+                    onClick={() => setSearchTerm('')}
+                  >
+                    limpia la búsqueda
+                  </button>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

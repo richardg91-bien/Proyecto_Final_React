@@ -8,6 +8,7 @@ import { useCartActions } from '../../hooks/useCartActions';
 // import { useProducts } from '../../hooks/useProducts';
 import Spinner from '../Spinner';
 import ErrorMessage from '../ErrorMessage';
+import SEO from '../SEO';
 
 const ShowProduct = () => {
   const { id } = useParams();
@@ -73,7 +74,13 @@ const ShowProduct = () => {
   // ).slice(0, 3);
 
   return (
-    <div className="show-product">
+    <>
+      <SEO
+        title={currentProduct?.name || 'Producto'}
+        description={currentProduct?.description || 'Ver detalles del producto en Indumentaria Agat'}
+        keywords={`${currentProduct?.name}, ${currentProduct?.category}, ${currentProduct?.gender}, comprar online`}
+      />
+      <div className="show-product">
       {showSuccess && (
         <div className="alert alert-success alert-dismissible position-fixed top-0 end-0 m-3" style={{zIndex: 1050, fontSize: '12px', padding: '6px 10px', maxWidth: '250px'}}>
           <i className="bi bi-check-circle me-1"></i>
@@ -224,6 +231,7 @@ const ShowProduct = () => {
       </div>
       */}
     </div>
+    </>
   );
 };
 

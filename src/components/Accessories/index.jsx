@@ -6,6 +6,7 @@ import { useProducts } from '../../hooks/useProducts';
 import CartContext from '../../context/CartContext';
 import Spinner from '../Spinner';
 import ErrorMessage from '../ErrorMessage';
+import SEO from '../SEO';
 
 const Accessories = () => {
   const { cartProducts, setCartProducts } = useContext(CartContext);
@@ -35,7 +36,13 @@ const Accessories = () => {
   }
 
   return (
-    <div className="accessories border-top border-4 border-dark bg-white">
+    <>
+      <SEO
+        title="Accesorios"
+        description="Complementa tu look con nuestros accesorios exclusivos. Bolsos, joyas, gafas y más para darle el toque final a tu estilo."
+        keywords="accesorios, bolsos, joyas, gafas, complementos, moda, estilo"
+      />
+      <div className="accessories border-top border-4 border-dark bg-white">
       <div className="accessories-title my-5 text-uppercase text-center fw-light" style={{fontFamily: 'Lato, sans-serif', color: 'rgba(0,0,0,0.8)'}}>
         <h4>Accessories</h4>
       </div>
@@ -113,6 +120,7 @@ const Accessories = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 
