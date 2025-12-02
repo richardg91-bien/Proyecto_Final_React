@@ -8,19 +8,35 @@ import { FaArrowDown } from 'react-icons/fa';
 const Header = () => (
   <div
     className="header d-flex flex-column align-items-center justify-content-center bg-transparent"
-    style={{height: '40em', fontFamily: 'Lato, sans-serif'}}
+    style={{
+      height: '40em', 
+      minHeight: '640px',
+      fontFamily: 'Lato, sans-serif',
+      contain: 'layout' // Previene layout shift
+    }}
   >
     {/* Logo Grande para Branding */}
-    <div className="logo-container mb-4">
+    <div 
+      className="logo-container mb-4" 
+      style={{
+        width: '150px',
+        height: '150px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
       <OptimizedImage 
         src={logo} 
         alt="Indumentaria Agat Logo" 
         width="150"
         height="150"
         loading="eager"
+        fetchpriority="high"
         style={{
+          width: '150px',
           height: '150px',
-          width: 'auto',
+          objectFit: 'cover',
           borderRadius: '15px',
           boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
           transition: 'transform 0.3s ease'

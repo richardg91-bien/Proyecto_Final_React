@@ -16,6 +16,7 @@ const OptimizedImage = ({
   height,
   loading = 'lazy',
   decoding = 'async',
+  fetchpriority,
   placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f0f0f0" width="400" height="300"/%3E%3C/svg%3E',
   onLoad,
   onError,
@@ -83,6 +84,7 @@ const OptimizedImage = ({
       height={height}
       loading={loading}
       decoding={decoding}
+      fetchpriority={fetchpriority}
       onLoad={handleLoad}
       onError={handleError}
       style={{
@@ -103,6 +105,7 @@ OptimizedImage.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   loading: PropTypes.oneOf(['lazy', 'eager']),
   decoding: PropTypes.oneOf(['async', 'sync', 'auto']),
+  fetchpriority: PropTypes.oneOf(['high', 'low', 'auto']),
   placeholder: PropTypes.string,
   onLoad: PropTypes.func,
   onError: PropTypes.func,

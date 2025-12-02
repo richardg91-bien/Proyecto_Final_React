@@ -5,12 +5,14 @@ import React, { lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
 
+// Iconos optimizados (solo los que usamos)
+import './bootstrap-icons-minimal.css';
+
 // Lazy load de estilos no críticos con prioridad optimizada
 const loadStyles = () => {
   // Cargar en orden de prioridad
   const stylesheets = [
     { href: () => import('bootstrap/dist/css/bootstrap.min.css'), media: 'all' },
-    { href: () => import('bootstrap-icons/font/bootstrap-icons.css'), media: 'all' },
     { href: () => import('react-toastify/dist/ReactToastify.css'), media: 'all' },
     { href: () => import('./index.css'), media: 'all' },
   ];

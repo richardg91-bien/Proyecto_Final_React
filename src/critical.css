@@ -67,7 +67,28 @@ body {
   padding: 0.5rem 1rem;
 }
 
-/* Header básico */
+/* Header básico - Dimensiones fijas para prevenir CLS */
 .header {
   min-height: 40em;
+  height: 40em;
+}
+
+.logo-container {
+  width: 150px;
+  height: 150px;
+}
+
+/* Prevenir layout shift */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+img[width][height] {
+  height: auto;
+}
+
+/* Aspect ratio para imágenes */
+.aspect-ratio-1-1 {
+  aspect-ratio: 1 / 1;
 }
