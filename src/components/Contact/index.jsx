@@ -1,6 +1,7 @@
 //Dependencies
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import SEO from '../SEO';
 //Internals
 
 const Contact = () => {
@@ -43,8 +44,14 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-page bg-white min-vh-100">
-      <div className="container py-5">
+    <>
+      <SEO
+        title="Contacto"
+        description="Ponte en contacto con Indumentaria Agat. Estamos aquí para responder tus preguntas y ayudarte con lo que necesites."
+        keywords="contacto, ayuda, soporte, información, consultas"
+      />
+      <div className="contact-page bg-white min-vh-100">
+        <div className="container py-5">
         <div className="row justify-content-center">
           <div className="col-lg-10">
             {/* Hero Section */}
@@ -254,7 +261,8 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

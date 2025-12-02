@@ -1,6 +1,8 @@
 //Dependencies
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Alert } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { FaSave, FaTimes } from 'react-icons/fa';
 import './ProductForm.css';
 import { useProductsContext } from '../../hooks/useProductsContext';
 
@@ -17,7 +19,6 @@ const ProductForm = ({ onClose, editProduct = null, mode = 'add' }) => {
   
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
 
   // Llenar formulario en modo editar
   useEffect(() => {
@@ -107,31 +108,34 @@ const ProductForm = ({ onClose, editProduct = null, mode = 'add' }) => {
       if (mode === 'edit' && editProduct) {
         // Modo editar
         editarProducto(editProduct.id, formData);
+        toast.success(`¡Producto "${formData.nombre}" actualizado correctamente!`, {
+          icon: '✅'
+        });
         console.log('Producto editado:', editProduct.id, formData);
       } else {
         // Modo agregar
         const nuevoProducto = agregarProducto(formData);
+        toast.success(`¡Producto "${formData.nombre}" agregado correctamente!`, {
+          icon: '✨'
+        });
         console.log('Producto agregado:', nuevoProducto);
       }
-      
-      // Mostrar mensaje de éxito
-      setShowSuccess(true);
       
       // Limpiar formulario solo en modo agregar
       if (mode === 'add') {
         setFormData({ nombre: '', precio: '', descripcion: '', imagen: '', stock: '' });
       }
       
-      // Ocultar mensaje después de 3 segundos
+      // Cerrar formulario después de un breve delay
       setTimeout(() => {
-        setShowSuccess(false);
         if (onClose) {
           onClose();
         }
-      }, 3000);
+      }, 1500);
       
     } catch (error) {
       console.error('Error al procesar producto:', error);
+      toast.error('Error al procesar el producto. Inténtalo de nuevo.');
       setErrors({ submit: 'Error al procesar el producto. Inténtalo de nuevo.' });
     } finally {
       setIsSubmitting(false);
@@ -140,15 +144,7 @@ const ProductForm = ({ onClose, editProduct = null, mode = 'add' }) => {
 
   return (
     <div className="product-form">
-      {/* Mensaje de éxito */}
-      {showSuccess && (
-        <Alert variant="success" className="mb-4">
-          <i className="bi bi-check-circle-fill me-2"></i>
-          {mode === 'edit' ? '¡Producto editado exitosamente!' : '¡Producto agregado exitosamente!'}
-        </Alert>
-      )}
-
-      {/* Error general */}
+      {/* Mensaje de error general */}
       {errors.submit && (
         <Alert variant="danger" className="mb-4">
           <i className="bi bi-exclamation-triangle-fill me-2"></i>
@@ -304,12 +300,12 @@ const ProductForm = ({ onClose, editProduct = null, mode = 'add' }) => {
           >
             {isSubmitting ? (
               <>
-                <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-label="Procesando"></span>
                 {mode === 'edit' ? 'Actualizando...' : 'Agregando...'}
               </>
             ) : (
               <>
-                <i className={`bi ${mode === 'edit' ? 'bi-pencil-square' : 'bi-plus-circle'} me-2`}></i>
+                <FaSave className="me-2" />
                 {mode === 'edit' ? 'Actualizar Producto' : 'Agregar Producto'}
               </>
             )}
@@ -322,7 +318,9 @@ const ProductForm = ({ onClose, editProduct = null, mode = 'add' }) => {
               onClick={onClose}
               disabled={isSubmitting}
               style={{fontFamily: 'Quicksand, sans-serif'}}
+              aria-label="Cancelar"
             >
+              <FaTimes className="me-2" />
               Cancelar
             </Button>
           )}

@@ -2,6 +2,7 @@
 import React from 'react';
 //Internals
 import logo from '../../../../assets/logo1.jpeg';
+import { FaArrowDown } from 'react-icons/fa';
 
 const Header = () => (
   <div
@@ -38,7 +39,7 @@ const Header = () => (
     {/* Call to Action */}
     <div className="mt-3">
       <p className="text-muted small" style={{fontFamily: 'Quicksand, sans-serif'}}>
-        <i className="bi bi-arrow-down me-2"></i>
+        <FaArrowDown className="me-2" />
         Explora nuestras colecciones
       </p>
     </div>

@@ -1,10 +1,17 @@
 //Dependencies
 import React from 'react';
+import SEO from '../SEO';
 //Internals
 
 const About = () => {
   return (
-    <div className="about-page bg-white min-vh-100">
+    <>
+      <SEO
+        title="Sobre Nosotros"
+        description="Conoce la historia de Indumentaria Agat, nuestra misión, valores y compromiso con la moda de calidad."
+        keywords="sobre nosotros, historia, misión, valores, Indumentaria Agat"
+      />
+      <div className="about-page bg-white min-vh-100">
       <div className="container py-5">
         <div className="row justify-content-center">
           <div className="col-lg-10">
@@ -111,7 +118,8 @@ const About = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

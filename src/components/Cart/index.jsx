@@ -1,6 +1,7 @@
 //Dependencies
 import React, { useContext } from 'react';
 import CartContext from '../../context/CartContext';
+import SEO from '../SEO';
 //Internals
 // ...eliminado import de CSS legacy...
 
@@ -32,8 +33,14 @@ const CartProducts = () => {
   };
 
   return (
-    <div className="cart border-top border-4 border-dark d-flex w-100">
-      <div className="cart-items flex-grow-1 p-4">
+    <>
+      <SEO
+        title="Carrito de Compras"
+        description="Revisa los productos en tu carrito de compras y procede con tu pedido en Indumentaria Agat."
+        keywords="carrito, compras, checkout, pedido"
+      />
+      <div className="cart border-top border-4 border-dark d-flex w-100">
+        <div className="cart-items flex-grow-1 p-4">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h2 className="mb-0">Carrito</h2>
           <button
@@ -115,7 +122,8 @@ const CartProducts = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
