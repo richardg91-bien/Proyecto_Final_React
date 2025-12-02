@@ -1,9 +1,32 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// Plugin para optimizar recursos críticos
+const criticalResourcesPlugin = () => {
+  return {
+    name: 'critical-resources',
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        // Inyectar resource hints y optimizaciones
+        const resourceHints = `
+    <!-- Resource Hints para optimizar carga -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />`;
+        
+        return html.replace('<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />', 
+          '<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />' + resourceHints);
+      },
+    },
+  };
+};
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    criticalResourcesPlugin(),
+  ],
   build: {
     // Optimizaciones para reducir tamaño del bundle
     minify: 'terser',
@@ -16,6 +39,17 @@ export default defineConfig({
     },
     // CSS Code splitting
     cssCodeSplit: true,
+    // Optimizar module preload
+    modulePreload: {
+      polyfill: true,
+      resolveDependencies: (filename, deps) => {
+        // Precargar solo dependencias críticas
+        return deps.filter(dep => 
+          dep.includes('react-vendor') || 
+          dep.includes('critical')
+        );
+      },
+    },
     // Code splitting para lazy loading
     rollupOptions: {
       output: {
