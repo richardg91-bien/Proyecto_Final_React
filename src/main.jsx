@@ -25,13 +25,26 @@ import ProductsProvider from './components/ProductsProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import ShowProduct from './components/ShowProduct';
 
-// Desregistrar cualquier Service Worker existente
+// Desregistrar TODOS los Service Workers de manera agresiva
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(registrations => {
-    for (let registration of registrations) {
-      registration.unregister();
-    }
+    registrations.forEach(registration => {
+      registration.unregister().then(() => {
+        console.log('Service Worker desregistrado exitosamente');
+      });
+    });
+  }).catch(err => {
+    console.log('Error al desregistrar Service Workers:', err);
   });
+  
+  // Limpiar cachés del Service Worker
+  if ('caches' in window) {
+    caches.keys().then(names => {
+      names.forEach(name => {
+        caches.delete(name);
+      });
+    });
+  }
 }
 
 const root = createRoot(document.getElementById('root'));
