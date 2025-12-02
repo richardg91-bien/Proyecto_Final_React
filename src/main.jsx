@@ -33,27 +33,36 @@ const Login = lazy(() => import('./components/Login'));
 const Admin = lazy(() => import('./components/Admin'));
 const ShowProduct = lazy(() => import('./components/ShowProduct'));
 
-// Desregistrar TODOS los Service Workers de manera agresiva
-if ('serviceWorker' in navigator) {
+// Limpiar Service Workers solo una vez usando sessionStorage
+// Esto evita bloquear el bfcache en navegaciones subsecuentes
+if ('serviceWorker' in navigator && !sessionStorage.getItem('sw_cleaned')) {
   navigator.serviceWorker.getRegistrations().then(registrations => {
-    registrations.forEach(registration => {
-      registration.unregister().then(() => {
-        console.log('Service Worker desregistrado exitosamente');
+    if (registrations.length > 0) {
+      registrations.forEach(registration => {
+        registration.unregister();
       });
-    });
-  }).catch(err => {
-    console.log('Error al desregistrar Service Workers:', err);
+      // Marcar como limpiado en esta sesión
+      sessionStorage.setItem('sw_cleaned', 'true');
+    }
   });
   
-  // Limpiar cachés del Service Worker
+  // Limpiar cachés solo si existen
   if ('caches' in window) {
     caches.keys().then(names => {
-      names.forEach(name => {
-        caches.delete(name);
-      });
+      if (names.length > 0) {
+        names.forEach(name => caches.delete(name));
+      }
     });
   }
 }
+
+// Listener para restauración desde bfcache
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    // La página fue restaurada desde bfcache
+    console.log('Página restaurada desde bfcache');
+  }
+});
 
 const root = createRoot(document.getElementById('root'));
 root.render(
