@@ -2,10 +2,10 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 const SEO = ({ 
-  title = 'Indumentaria Agat', 
+  title = 'Indumentaria Agat',
   description = 'Tienda online de moda y accesorios de calidad. Encuentra ropa para hombre, mujer y los mejores accesorios.',
   keywords = 'ropa, moda, accesorios, indumentaria, tienda online, hombre, mujer',
-  image = 'https://via.placeholder.com/1200x630?text=Indumentaria+Agat',
+  image = '/images/products/producto-1.jpg',
   url = window.location.href,
   type = 'website'
 }) => {

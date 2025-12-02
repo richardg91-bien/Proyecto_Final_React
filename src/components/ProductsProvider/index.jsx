@@ -50,8 +50,8 @@ const ProductsProvider = ({ children }) => {
       price: parseFloat(nuevoProducto.precio),
       description: nuevoProducto.descripcion,
       category: 'general',
-      image: nuevoProducto.imagen || 'https://via.placeholder.com/300x300?text=Nuevo+Producto',
-      img: nuevoProducto.imagen || 'https://via.placeholder.com/300x300?text=Nuevo+Producto',
+      image: nuevoProducto.imagen || '/images/products/producto-1.jpg',
+      img: nuevoProducto.imagen || '/images/products/producto-1.jpg',
       stock: nuevoProducto.stock ? parseInt(nuevoProducto.stock) : 0,
       isLocal: true // Marca para identificar productos locales
     };

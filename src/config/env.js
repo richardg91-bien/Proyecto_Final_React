@@ -51,10 +51,10 @@ export const config = {
   // Image Configuration
   images: {
     basePath: import.meta.env.VITE_IMAGES_BASE_PATH || '/images/products',
-    defaultProduct: import.meta.env.VITE_DEFAULT_PRODUCT_IMAGE || 'https://via.placeholder.com/300x300?text=Producto',
-    placeholderBase: import.meta.env.VITE_PLACEHOLDER_IMAGE_BASE || 'https://via.placeholder.com',
-    fallback1: import.meta.env.VITE_FALLBACK_IMAGE_1 || 'https://image.ibb.co/mJppz5/img6.jpg',
-    fallback2: import.meta.env.VITE_FALLBACK_IMAGE_2 || 'https://image.ibb.co/eZiSmk/img7.jpg',
+    defaultProduct: import.meta.env.VITE_DEFAULT_PRODUCT_IMAGE || '/images/products/producto-1.jpg',
+    placeholderBase: import.meta.env.VITE_PLACEHOLDER_IMAGE_BASE || '/images/products',
+    fallback1: import.meta.env.VITE_FALLBACK_IMAGE_1 || '/images/products/producto-2.jpg',
+    fallback2: import.meta.env.VITE_FALLBACK_IMAGE_2 || '/images/products/producto-3.jpg',
   },
 
   // External CDNs
