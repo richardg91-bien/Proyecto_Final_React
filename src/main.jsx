@@ -24,7 +24,15 @@ import AuthProvider from './components/AuthProvider';
 import ProductsProvider from './components/ProductsProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import ShowProduct from './components/ShowProduct';
-// import registerServiceWorker from './registerServiceWorker';
+
+// Desregistrar cualquier Service Worker existente
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    for (let registration of registrations) {
+      registration.unregister();
+    }
+  });
+}
 
 const root = createRoot(document.getElementById('root'));
 root.render(
@@ -76,4 +84,3 @@ root.render(
     </AuthProvider>
   </BrowserRouter>
 );
-// registerServiceWorker();
