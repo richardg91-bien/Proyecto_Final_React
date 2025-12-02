@@ -13,9 +13,21 @@ export default defineConfig({
         manualChunks: (id) => {
           // Separar node_modules en chunks específicos y optimizados
           if (id.includes('node_modules')) {
-            // Core React (crítico, siempre necesario)
-            if (id.includes('react/') || id.includes('react-dom/') || id.includes('scheduler')) {
-              return 'react-core';
+            // Dividir React en chunks más pequeños
+            if (id.includes('react-dom/client')) {
+              return 'react-dom-client';
+            }
+            if (id.includes('react-dom')) {
+              return 'react-dom';
+            }
+            if (id.includes('react/jsx-runtime')) {
+              return 'react-jsx';
+            }
+            if (id.includes('scheduler')) {
+              return 'scheduler';
+            }
+            if (id.includes('react') && !id.includes('react-')) {
+              return 'react';
             }
             // Router (lazy load)
             if (id.includes('react-router')) {
@@ -79,11 +91,13 @@ export default defineConfig({
     // Target para navegadores modernos
     target: 'es2020', // Mejor compatibilidad con código más pequeño
     // Chunk size warnings
-    chunkSizeWarningLimit: 300, // Más estricto
+    chunkSizeWarningLimit: 200, // Muy estricto para detectar chunks grandes
     // Reportar tamaños comprimidos
     reportCompressedSize: true,
     // Inline assets pequeños
     assetsInlineLimit: 2048, // 2kb - reducido para menor bundle inicial
+    // Módulos que pueden externalizarse si se necesita más optimización
+    // external: [], // Agregar dependencias CDN aquí si es necesario
   },
   
   // Optimizaciones de desarrollo

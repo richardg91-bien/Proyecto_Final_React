@@ -1,3 +1,6 @@
+// Importar solo módulos necesarios de Bootstrap (custom SCSS)
+// Si quieres activar: import './styles/bootstrap-custom.scss';
+// Por ahora usamos el completo para compatibilidad con react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Bootstrap Icons removido - usamos solo React Icons
 import 'react-toastify/dist/ReactToastify.css';
