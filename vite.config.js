@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import viteImagemin from 'vite-plugin-imagemin'
 
 // Plugin para optimizar recursos críticos
 const criticalResourcesPlugin = () => {
@@ -26,6 +27,35 @@ export default defineConfig({
   plugins: [
     react(),
     criticalResourcesPlugin(),
+    // Optimización de imágenes
+    viteImagemin({
+      gifsicle: {
+        optimizationLevel: 7,
+        interlaced: false,
+      },
+      optipng: {
+        optimizationLevel: 7,
+      },
+      mozjpeg: {
+        quality: 80,
+      },
+      pngquant: {
+        quality: [0.8, 0.9],
+        speed: 4,
+      },
+      svgo: {
+        plugins: [
+          {
+            name: 'removeViewBox',
+            active: false,
+          },
+          {
+            name: 'removeEmptyAttrs',
+            active: false,
+          },
+        ],
+      },
+    }),
   ],
   build: {
     // Optimizaciones para reducir tamaño del bundle
@@ -71,8 +101,12 @@ export default defineConfig({
     },
     // Aumentar el límite de advertencia de chunk
     chunkSizeWarningLimit: 600,
+    // Optimización de assets (imágenes)
+    assetsInlineLimit: 4096, // Inline assets < 4kb como base64
   },
   css: {
     devSourcemap: false,
   },
+  // Optimización de assets estáticos
+  assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg', '**/*.webp'],
 })

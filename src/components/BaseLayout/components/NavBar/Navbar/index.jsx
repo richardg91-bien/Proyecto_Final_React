@@ -5,6 +5,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../../../../hooks/useAuth';
 import CartContext from '../../../../../context/CartContext';
 import logo from '../../../../../assets/logo1.jpeg';
+import OptimizedImage from '../../../../OptimizedImage';
 import { 
   FaHome, FaShoppingCart, FaUser, FaShieldAlt, 
   FaSignInAlt, FaSignOutAlt, FaUserCircle, FaBars, FaTimes 
@@ -46,9 +47,12 @@ const Navbar = () => {
           className="text-white text-decoration-none d-flex align-items-center"
           onClick={closeMenu}
         >
-          <img 
+          <OptimizedImage 
             src={logo} 
             alt="Indumentaria Agat Logo" 
+            width="40"
+            height="40"
+            loading="eager"
             style={{
               height: '40px',
               width: 'auto',

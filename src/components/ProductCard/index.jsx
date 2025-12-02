@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
+import OptimizedImage from '../OptimizedImage';
 import {
   CardContainer,
   ImageWrapper,
@@ -27,9 +28,13 @@ const ProductCard = ({ product, onAddToCart }) => {
             </StockBadge>
           )}
           <ProductImage
+            as={OptimizedImage}
             src={product.img}
             alt={product.name}
             loading="lazy"
+            decoding="async"
+            width="300"
+            height="300"
           />
         </ImageWrapper>
       </Link>

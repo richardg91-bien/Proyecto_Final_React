@@ -2,6 +2,7 @@
 import React from 'react';
 //Internals
 import logo from '../../../../assets/logo1.jpeg';
+import OptimizedImage from '../../../OptimizedImage';
 import { FaArrowDown } from 'react-icons/fa';
 
 const Header = () => (
@@ -11,9 +12,12 @@ const Header = () => (
   >
     {/* Logo Grande para Branding */}
     <div className="logo-container mb-4">
-      <img 
+      <OptimizedImage 
         src={logo} 
         alt="Indumentaria Agat Logo" 
+        width="150"
+        height="150"
+        loading="eager"
         style={{
           height: '150px',
           width: 'auto',
