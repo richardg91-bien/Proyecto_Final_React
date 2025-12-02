@@ -24,7 +24,7 @@ import AuthProvider from './components/AuthProvider';
 import ProductsProvider from './components/ProductsProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import ShowProduct from './components/ShowProduct';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
@@ -76,4 +76,4 @@ root.render(
     </AuthProvider>
   </BrowserRouter>
 );
-registerServiceWorker();
+// registerServiceWorker();
