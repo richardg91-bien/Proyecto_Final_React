@@ -24,7 +24,6 @@ const OptimizedImage = ({
 }) => {
   const [imageSrc, setImageSrc] = useState(placeholder);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
   const imgRef = useRef(null);
 
   useEffect(() => {
@@ -51,13 +50,14 @@ const OptimizedImage = ({
         }
       );
 
-      if (imgRef.current) {
-        observer.observe(imgRef.current);
+      const currentImg = imgRef.current;
+      if (currentImg) {
+        observer.observe(currentImg);
       }
 
       return () => {
-        if (imgRef.current) {
-          observer.unobserve(imgRef.current);
+        if (currentImg) {
+          observer.unobserve(currentImg);
         }
       };
     }
@@ -69,11 +69,9 @@ const OptimizedImage = ({
   };
 
   const handleError = (e) => {
-    setHasError(true);
     setImageSrc(placeholder);
     if (onError) onError(e);
   };
-
   return (
     <img
       ref={imgRef}

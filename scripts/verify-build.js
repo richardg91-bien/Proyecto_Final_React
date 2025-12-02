@@ -8,6 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import process from 'node:process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -59,6 +60,32 @@ referencedFiles.forEach(file => {
   
   if (!exists) {
     allFilesExist = false;
+  }
+});
+
+console.log('\n');
+
+// Verificación adicional: archivos críticos en la raíz
+const criticalRootFiles = [
+  'service-worker.js',
+  'robots.txt',
+  'vite.svg'
+];
+
+console.log('🔍 Verificando archivos críticos en raíz...\n');
+
+criticalRootFiles.forEach(file => {
+  const filePath = path.join(distDir, file);
+  const exists = fs.existsSync(filePath);
+  
+  const status = exists ? '✅' : '⚠️ ';
+  const color = exists ? '\x1b[32m' : '\x1b[33m';
+  const reset = '\x1b[0m';
+  
+  console.log(`${color}${status} /${file}${reset}`);
+  
+  if (!exists && file === 'service-worker.js') {
+    console.log(`   ${color}→ Nota: service-worker.js faltante causará error 404 en navegador${reset}`);
   }
 });
 

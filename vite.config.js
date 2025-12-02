@@ -1,6 +1,26 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteImagemin from 'vite-plugin-imagemin'
+import { copyFileSync } from 'fs'
+import { resolve } from 'path'
+
+// Plugin para copiar service worker vacío
+const copyServiceWorkerPlugin = () => {
+  return {
+    name: 'copy-service-worker',
+    closeBundle() {
+      try {
+        copyFileSync(
+          resolve(__dirname, 'public/service-worker.js'),
+          resolve(__dirname, 'dist/service-worker.js')
+        );
+        console.log('✅ service-worker.js copiado a dist/');
+      } catch (err) {
+        console.error('⚠️  Error copiando service-worker.js:', err.message);
+      }
+    }
+  };
+};
 
 // Plugin para optimizar recursos críticos
 const criticalResourcesPlugin = () => {
@@ -27,6 +47,7 @@ export default defineConfig({
   plugins: [
     react(),
     criticalResourcesPlugin(),
+    copyServiceWorkerPlugin(),
     // Optimización de imágenes
     viteImagemin({
       gifsicle: {

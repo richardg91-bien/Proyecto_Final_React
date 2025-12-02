@@ -52,7 +52,7 @@ export const config = {
   images: {
     basePath: import.meta.env.VITE_IMAGES_BASE_PATH || '/images/products',
     defaultProduct: import.meta.env.VITE_DEFAULT_PRODUCT_IMAGE || '/images/products/producto-1.jpg',
-    placeholderBase: import.meta.env.VITE_PLACEHOLDER_IMAGE_BASE || '/images/products',
+    placeholderBase: import.meta.env.VITE_PLACEHOLDER_IMAGE_BASE || 'https://placehold.co',
     fallback1: import.meta.env.VITE_FALLBACK_IMAGE_1 || '/images/products/producto-2.jpg',
     fallback2: import.meta.env.VITE_FALLBACK_IMAGE_2 || '/images/products/producto-3.jpg',
   },
