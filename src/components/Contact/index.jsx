@@ -1,5 +1,6 @@
 //Dependencies
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Button } from 'react-bootstrap';
 //Internals
 
@@ -43,15 +44,34 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-page bg-white min-vh-100">
-      <div className="container py-5">
-        <div className="row justify-content-center">
-          <div className="col-lg-10">
-            {/* Hero Section */}
-            <div className="text-center mb-5">
-              <h1 className="display-4 fw-light text-uppercase mb-4" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
-                Contacto
-              </h1>
+    <>
+      <Helmet>
+        <title>Contacto - Indumentaria Agat | Comunícate con Nosotros</title>
+        <meta 
+          name="description" 
+          content="¿Tienes preguntas? Contáctanos. Estamos disponibles por email, teléfono y redes sociales. Atención al cliente de lunes a viernes de 9 a 18hs. ¡Esperamos tu mensaje!" 
+        />
+        <meta 
+          name="keywords" 
+          content="contacto, Indumentaria Agat, atención al cliente, email, teléfono, consultas, soporte" 
+        />
+        <meta property="og:title" content="Contacto - Indumentaria Agat" />
+        <meta 
+          property="og:description" 
+          content="Comunícate con nosotros. Respondemos todas tus consultas sobre productos, envíos y más." 
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+      <div className="contact-page bg-white min-vh-100">
+        <div className="container py-5">
+          <div className="row justify-content-center">
+            <div className="col-lg-10">
+              {/* Hero Section */}
+              <div className="text-center mb-5">
+                <h1 className="display-4 fw-light text-uppercase mb-4" style={{color: 'rgba(0,0,0,0.8)', fontFamily: 'Lato, sans-serif'}}>
+                  Contacto
+                </h1>
               <p className="lead text-muted" style={{fontFamily: 'Quicksand, sans-serif'}}>
                 ¿Tienes alguna pregunta? Nos encantaría escucharte
               </p>
@@ -254,7 +274,8 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

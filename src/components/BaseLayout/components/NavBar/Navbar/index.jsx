@@ -2,8 +2,10 @@
 import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { NavLink, Link } from 'react-router-dom';
+import { FiShoppingCart, FiUser, FiMenu, FiX, FiLogOut, FiShield } from 'react-icons/fi';
 import { useAuth } from '../../../../../hooks/useAuth';
 import CartContext from '../../../../../context/CartContext';
+import { showLogoutToast } from '../../../../../utils/toast';
 import logo from '../../../../../assets/logo1.jpeg';
 
 const Navbar = () => {
@@ -65,7 +67,7 @@ const Navbar = () => {
         }}
       >
         <span className="text-white" style={{ fontSize: '1.5rem' }}>
-          <i className={`bi ${isMenuOpen ? 'bi-x' : 'bi-list'}`}></i>
+          {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </span>
       </button>
 
@@ -209,8 +211,19 @@ const Navbar = () => {
         <div className={`navbar-actions d-flex ${isMenuOpen ? 'flex-column mt-3' : 'flex-row'} align-items-${isMenuOpen ? 'start' : 'center'} gap-2`}>
           {/* Carrito */}
           <NavLink to="/cart" className="text-decoration-none" onClick={closeMenu}>
-            <Button variant="outline-light" size="sm" className="position-relative">
-              <i className="bi bi-cart"></i>
+            <Button 
+              variant="outline-light" 
+              size="sm" 
+              className="position-relative"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontFamily: 'Quicksand, sans-serif',
+                fontWeight: '600'
+              }}
+            >
+              <FiShoppingCart size={18} />
               {totalItemsInCart > 0 && (
                 <span 
                   className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
@@ -226,8 +239,18 @@ const Navbar = () => {
           {/* Admin Link (solo si es admin) */}
           {isAuthenticated && isAdmin() && (
             <NavLink to="/admin" className="text-decoration-none" onClick={closeMenu}>
-              <Button variant="outline-warning" size="sm">
-                <i className="bi bi-shield-check me-1"></i>
+              <Button 
+                variant="outline-warning" 
+                size="sm"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontFamily: 'Quicksand, sans-serif',
+                  fontWeight: '600'
+                }}
+              >
+                <FiShield size={16} />
                 Admin
               </Button>
             </NavLink>
@@ -237,8 +260,8 @@ const Navbar = () => {
           {isAuthenticated ? (
             <div className={`d-flex ${isMenuOpen ? 'flex-column' : 'flex-row'} align-items-${isMenuOpen ? 'start' : 'center'} gap-2`}>
               {/* User Info */}
-              <span className="text-white small" style={{ fontFamily: 'Quicksand, sans-serif' }}>
-                <i className="bi bi-person-circle me-1"></i>
+              <span className="text-white small" style={{ fontFamily: 'Quicksand, sans-serif', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <FiUser size={18} />
                 {user?.name}
               </span>
               
@@ -249,17 +272,35 @@ const Navbar = () => {
                 onClick={() => {
                   logout();
                   closeMenu();
+                  showLogoutToast();
                 }}
                 title="Cerrar Sesión"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontFamily: 'Quicksand, sans-serif',
+                  fontWeight: '600'
+                }}
               >
-                <i className="bi bi-box-arrow-right"></i>
+                <FiLogOut size={16} />
                 {isMenuOpen && <span className="ms-2">Salir</span>}
               </Button>
             </div>
           ) : (
             <Link to="/login" className="text-decoration-none" onClick={closeMenu}>
-              <Button variant="outline-success" size="sm">
-                <i className="bi bi-box-arrow-in-right me-1"></i>
+              <Button 
+                variant="outline-success" 
+                size="sm"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontFamily: 'Quicksand, sans-serif',
+                  fontWeight: '600'
+                }}
+              >
+                <FiUser size={16} />
                 Iniciar Sesión
               </Button>
             </Link>
